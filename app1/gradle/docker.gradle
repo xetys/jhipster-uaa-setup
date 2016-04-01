@@ -1,0 +1,20 @@
+apply plugin: 'docker'
+
+task buildDocker(type: Docker, dependsOn: build) {
+    push = false
+    tag = 'app1'
+    tagVersion = 'latest'
+    dockerfile = file('src/main/docker/Dockerfile')
+    doFirst {
+        copy {
+            from "src/main/docker/"
+            into stageDir
+            include "*.*"
+        }
+        copy {
+            from "build/libs"
+            into stageDir
+            include "*.war*"
+        }
+    }
+}

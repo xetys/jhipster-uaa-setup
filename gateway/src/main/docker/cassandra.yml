@@ -1,0 +1,23 @@
+version: '2'
+services:
+    gateway-cassandra:
+        container_name: gateway-cassandra
+        build:
+            context: .
+            dockerfile: cassandra/Cassandra.Dockerfile
+        # volumes:
+        #     - ~/volumes/jhipster/gateway/cassandra/:/var/lib/cassandra/data
+        ports:
+            - 7000:7000
+            - 7001:7001
+            - 7199:7199
+            - 9042:9042
+            - 9160:9160
+    gateway-cassandra-node:
+        build:
+            context: .
+            dockerfile: cassandra/Cassandra.Dockerfile
+        links:
+            - gateway-cassandra:seed
+        environment:
+            - CASSANDRA_SEEDS=seed

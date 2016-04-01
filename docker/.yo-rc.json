@@ -1,0 +1,12 @@
+{
+  "generator-jhipster": {
+    "appsFolders": [
+      "app1",
+      "app2",
+      "gateway",
+      "uaa"
+    ],
+    "useElk": true,
+    "jwtSecretKey": "7721a00229441a78f4c1b328bc579067f2e7c685"
+  }
+}

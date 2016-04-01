@@ -1,0 +1,8 @@
+version: '2'
+services:
+    app2-sonar:
+        container_name: app2-sonar
+        image: sonarqube:5.3
+        ports:
+            - 9000:9000
+            - 9092:9092

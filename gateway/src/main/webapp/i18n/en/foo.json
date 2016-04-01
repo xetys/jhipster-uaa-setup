@@ -1,0 +1,22 @@
+{
+    "gatewayApp": {
+        "foo" : {
+            "home": {
+                "title": "Foos",
+                "createLabel": "Create a new Foo",
+                "createOrEditLabel": "Create or edit a Foo",
+                "search": "Search for Foo"
+            },
+            "created": "A new Foo is created with identifier {{ param }}",
+            "updated": "A Foo is updated with identifier {{ param }}",
+            "deleted": "A Foo is deleted with identifier {{ param }}",
+            "delete": {
+                "question": "Are you sure you want to delete Foo {{ id }}?"
+            },
+            "detail": {
+                "title": "Foo"
+            },
+            "value": "Value"
+        }
+    }
+}

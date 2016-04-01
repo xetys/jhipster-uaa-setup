@@ -1,0 +1,54 @@
+import org.apache.tools.ant.taskdefs.condition.Os
+apply plugin: 'spring-boot'
+apply plugin: 'com.moowork.node'
+apply plugin: 'com.moowork.gulp'
+
+
+ext {
+    logbackLoglevel = "INFO"
+}
+
+dependencies {
+    compile group: 'org.springframework.boot', name: 'spring-boot-starter-tomcat', version: spring_boot_version
+}
+
+def profiles = 'prod'
+if (project.hasProperty('no-liquibase')) {
+    profiles += ',no-liquibase'
+}
+
+if (project.hasProperty('no-cache')) {
+    profiles += ',no-cache'
+}
+
+bootRun {
+    args = ["--spring.profiles.active=" + profiles]
+}
+
+task gulpBuildWithOpts(type: GulpTask) {
+    args = ["build", "--no-notification"]
+}
+
+war {
+    webAppDirName = 'build/www/'
+}
+
+processResources {
+    filesMatching('**/logback-spring.xml') {
+        filter {
+            it.replace('@logback.loglevel@', logbackLoglevel)
+        }
+    }
+}
+
+task setProdProperties(dependsOn: bootRun) << {
+    doFirst {
+        System.setProperty('spring.profiles.active', profiles)
+    }
+}
+
+gulp_build.dependsOn 'npmInstall'
+gulp_build.dependsOn 'bower'
+processResources.dependsOn gulpBuildWithOpts
+test.dependsOn gulp_test
+bootRun.dependsOn gulp_test
