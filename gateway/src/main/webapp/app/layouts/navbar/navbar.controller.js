@@ -5,25 +5,42 @@
         .module('gatewayApp')
         .controller('NavbarController', NavbarController);
 
-    NavbarController.$inject = ['$location', '$state', 'Auth', 'Principal', 'ENV', 'LoginService'];
+    NavbarController.$inject = ['$state', 'Auth', 'Principal', 'ProfileService', 'LoginService'];
 
-    function NavbarController ($location, $state, Auth, Principal, ENV, LoginService) {
+    function NavbarController ($state, Auth, Principal, ProfileService, LoginService) {
         var vm = this;
 
-        vm.navCollapsed = true;
+        vm.isNavbarCollapsed = true;
         vm.isAuthenticated = Principal.isAuthenticated;
-        vm.inProduction = ENV === 'prod';
+
+        ProfileService.getProfileInfo().then(function(response) {
+            vm.inProduction = response.inProduction;
+            vm.swaggerDisabled = response.swaggerDisabled;
+        });
+
         vm.login = login;
         vm.logout = logout;
+        vm.toggleNavbar = toggleNavbar;
+        vm.collapseNavbar = collapseNavbar;
         vm.$state = $state;
 
-        function login () {
+        function login() {
+            collapseNavbar();
             LoginService.open();
         }
 
-        function logout () {
+        function logout() {
+            collapseNavbar();
             Auth.logout();
             $state.go('home');
+        }
+
+        function toggleNavbar() {
+            vm.isNavbarCollapsed = !vm.isNavbarCollapsed;
+        }
+
+        function collapseNavbar() {
+            vm.isNavbarCollapsed = true;
         }
     }
 })();

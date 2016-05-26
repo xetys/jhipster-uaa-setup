@@ -16,7 +16,7 @@
     <!--
         Added the entity Bar.
     -->
-    <changeSet id="20160401130532" author="jhipster">
+    <changeSet id="20160401130532-1" author="jhipster">
         <createTable tableName="bar">
             <column name="id" type="bigint" autoIncrement="${autoIncrement}">
                 <constraints primaryKey="true" nullable="false"/>

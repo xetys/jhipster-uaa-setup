@@ -31,6 +31,8 @@ public class JHipsterProperties {
 
     private final CorsConfiguration cors = new CorsConfiguration();
 
+    private final Ribbon ribbon = new Ribbon();
+
     public Async getAsync() {
         return async;
     }
@@ -61,6 +63,10 @@ public class JHipsterProperties {
 
     public CorsConfiguration getCors() {
         return cors;
+    }
+
+    public Ribbon getRibbon() {
+        return ribbon;
     }
 
     public static class Async {
@@ -133,7 +139,7 @@ public class JHipsterProperties {
 
     public static class Mail {
 
-        private String from = "UAA@localhost";
+        private String from = "uaa@localhost";
 
         public String getFrom() {
             return from;
@@ -196,9 +202,9 @@ public class JHipsterProperties {
 
     public static class Swagger {
 
-        private String title = "UAA API";
+        private String title = "uaa API";
 
-        private String description = "UAA API documentation";
+        private String description = "uaa API documentation";
 
         private String version = "0.0.1";
 
@@ -378,7 +384,7 @@ public class JHipsterProperties {
 
             private int port = 2003;
 
-            private String prefix = "UAA";
+            private String prefix = "uaa";
 
             public boolean isEnabled() {
                 return enabled;
@@ -473,6 +479,20 @@ public class JHipsterProperties {
 
             public void setQueueSize(int queueSize) { this.queueSize = queueSize; }
         }
+
     }
+
+    public static class Ribbon {
+
+        private String[] displayOnActiveProfiles;
+
+        public String[] getDisplayOnActiveProfiles() {
+            return displayOnActiveProfiles;
+        }
+        
+        public void setDisplayOnActiveProfiles(String[] displayOnActiveProfiles) {
+            this.displayOnActiveProfiles = displayOnActiveProfiles;
+        }
+    }  
 
 }

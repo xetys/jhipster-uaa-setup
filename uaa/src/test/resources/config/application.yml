@@ -14,14 +14,14 @@ eureka:
     client:
         enabled: false
     instance:
-        appname: UAA
-        instanceId: UAA:${spring.application.instance_id:${random.value}}
+        appname: uaa
+        instanceId: uaa:${spring.application.instance_id:${random.value}}
 
 spring:
     application:
-        name: UAA
+        name: uaa
     datasource:
-        url: jdbc:h2:mem:UAA;DB_CLOSE_DELAY=-1
+        url: jdbc:h2:mem:uaa;DB_CLOSE_DELAY=-1
         name:
         username:
         password:
@@ -67,11 +67,16 @@ jhipster:
         maxPoolSize: 50
         queueCapacity: 10000
     security:
+        authentication:
+            jwt:
+                secret: 3e4b7a96a9d17abb2726c068020653a9baa6b3f8
+                # Token is valid 24 hours
+                tokenValidityInSeconds: 86400
     metrics: # DropWizard Metrics configuration, used by MetricsConfiguration
         jmx.enabled: true
     swagger:
-        title: UAA API
-        description: UAA API documentation
+        title: uaa API
+        description: uaa API documentation
         version: 0.0.1
         termsOfServiceUrl:
         contactName:

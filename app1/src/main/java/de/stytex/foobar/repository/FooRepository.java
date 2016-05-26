@@ -9,6 +9,7 @@ import java.util.List;
 /**
  * Spring Data JPA repository for the Foo entity.
  */
+@SuppressWarnings("unused")
 public interface FooRepository extends JpaRepository<Foo,Long> {
 
 }

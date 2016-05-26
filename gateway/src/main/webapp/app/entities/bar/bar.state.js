@@ -51,7 +51,7 @@
                     return $translate.refresh();
                 }],
                 entity: ['$stateParams', 'Bar', function($stateParams, Bar) {
-                    return Bar.get({id : $stateParams.id});
+                    return Bar.get({id : $stateParams.id}).$promise;
                 }]
             }
         })
@@ -98,7 +98,7 @@
                     size: 'lg',
                     resolve: {
                         entity: ['Bar', function(Bar) {
-                            return Bar.get({id : $stateParams.id});
+                            return Bar.get({id : $stateParams.id}).$promise;
                         }]
                     }
                 }).result.then(function() {
@@ -122,7 +122,7 @@
                     size: 'md',
                     resolve: {
                         entity: ['Bar', function(Bar) {
-                            return Bar.get({id : $stateParams.id});
+                            return Bar.get({id : $stateParams.id}).$promise;
                         }]
                     }
                 }).result.then(function() {

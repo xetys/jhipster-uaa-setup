@@ -20,7 +20,7 @@ eureka:
         registerWithEureka: true
         fetchRegistry: true
         serviceUrl:
-            defaultZone: http://localhost:8761/eureka/
+            defaultZone: http://admin:admin@localhost:8761/eureka/
 
 spring:
     devtools:
@@ -57,6 +57,7 @@ server:
     compression:
         enabled: true
         mime-types: text/html,text/xml,text/plain,text/css, application/javascript, application/json
+        min-response-size: 1024
 
 # ===================================================================
 # JHipster specific properties
@@ -66,6 +67,12 @@ jhipster:
     http:
         cache: # Used by the CachingHttpHeadersFilter
             timeToLiveInDays: 1461
+    security:
+        authentication:
+            jwt:
+                secret: 326ce1f868db115df5c36f532978c2d1a0fc5b2c
+                # Token is valid 24 hours
+                tokenValidityInSeconds: 86400
     mail: # specific JHipster mail property, for standard properties see MailProperties
         from: app1@localhost
     metrics: # DropWizard Metrics configuration, used by MetricsConfiguration
@@ -79,7 +86,7 @@ jhipster:
             host: localhost
             port: 2003
             prefix: app1
-        logs: # report metrics in the logs
+        logs: # Reports Dropwizard metrics in the logs
             enabled: false
             reportFrequency: 60 # in seconds
     logging:
@@ -88,5 +95,8 @@ jhipster:
             host: localhost
             port: 5000
             queueSize: 512
+        spectator-metrics: # Reports Spectator Circuit Breaker metrics in the logs
+            enabled: false
+            # edit spring.metrics.export.delay-millis to set report frequency
     swagger: # swagger is disabled. It can be disabled by pasing 'no-swagger' profile at run time as well
         enabled: false

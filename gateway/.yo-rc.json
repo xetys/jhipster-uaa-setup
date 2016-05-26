@@ -1,6 +1,6 @@
 {
   "generator-jhipster": {
-    "jhipsterVersion": "3.0.0",
+    "jhipsterVersion": "3.3.0",
     "baseName": "gateway",
     "packageName": "de.stytex.foobar",
     "packageFolder": "de/stytex/foobar",
@@ -20,6 +20,11 @@
     "nativeLanguage": "en",
     "languages": [
       "en"
-    ]
+    ],
+    "authenticationType": "uaa",
+    "uaaBaseName": "uaa",
+    "jwtSecretKey": "d56e91db6f678d711da8a70bc60bba26ca77e5eb",
+    "jhiPrefix": "jhi",
+    "enableSocialSignIn": false
   }
 }

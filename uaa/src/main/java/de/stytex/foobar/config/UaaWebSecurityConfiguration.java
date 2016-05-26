@@ -53,8 +53,6 @@ public class UaaWebSecurityConfiguration extends WebSecurityConfigurerAdapter {
             .antMatchers("/h2-console/**");
     }
 
-
-
     @Bean
     public SecurityEvaluationContextExtension securityEvaluationContextExtension() {
         return new SecurityEvaluationContextExtension();

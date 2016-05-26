@@ -5,38 +5,42 @@
         .module('gatewayApp')
         .controller('FooDialogController', FooDialogController);
 
-    FooDialogController.$inject = ['$scope', '$stateParams', '$uibModalInstance', 'entity', 'Foo'];
+    FooDialogController.$inject = ['$timeout', '$scope', '$stateParams', '$uibModalInstance', 'entity', 'Foo'];
 
-    function FooDialogController ($scope, $stateParams, $uibModalInstance, entity, Foo) {
+    function FooDialogController ($timeout, $scope, $stateParams, $uibModalInstance, entity, Foo) {
         var vm = this;
+
         vm.foo = entity;
-        vm.load = function(id) {
-            Foo.get({id : id}, function(result) {
-                vm.foo = result;
-            });
-        };
+        vm.clear = clear;
+        vm.save = save;
 
-        var onSaveSuccess = function (result) {
-            $scope.$emit('gatewayApp:fooUpdate', result);
-            $uibModalInstance.close(result);
-            vm.isSaving = false;
-        };
+        $timeout(function (){
+            angular.element('.form-group:eq(1)>input').focus();
+        });
 
-        var onSaveError = function () {
-            vm.isSaving = false;
-        };
+        function clear () {
+            $uibModalInstance.dismiss('cancel');
+        }
 
-        vm.save = function () {
+        function save () {
             vm.isSaving = true;
             if (vm.foo.id !== null) {
                 Foo.update(vm.foo, onSaveSuccess, onSaveError);
             } else {
                 Foo.save(vm.foo, onSaveSuccess, onSaveError);
             }
-        };
+        }
 
-        vm.clear = function() {
-            $uibModalInstance.dismiss('cancel');
-        };
+        function onSaveSuccess (result) {
+            $scope.$emit('gatewayApp:fooUpdate', result);
+            $uibModalInstance.close(result);
+            vm.isSaving = false;
+        }
+
+        function onSaveError () {
+            vm.isSaving = false;
+        }
+
+
     }
 })();

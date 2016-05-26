@@ -1,6 +1,6 @@
 {
   "generator-jhipster": {
-    "jhipsterVersion": "3.0.0",
+    "jhipsterVersion": "3.3.0",
     "packageName": "de.stytex.foobar",
     "packageFolder": "de/stytex/foobar",
     "serverPort": "9999",
@@ -10,7 +10,7 @@
     "prodDatabaseType": "postgresql",
     "searchEngine": "no",
     "buildTool": "gradle",
-    "jwtSecretKey": "ed46ce4740b0537f09b23e481a33bd76d09d8971",
+    "jwtSecretKey": "3e4b7a96a9d17abb2726c068020653a9baa6b3f8",
     "enableTranslation": true,
     "applicationType": "uaa",
     "testFrameworks": [],
@@ -18,6 +18,9 @@
     "nativeLanguage": "en",
     "languages": [
       "en"
-    ]
+    ],
+    "baseName": "uaa",
+    "authenticationType": "uaa",
+    "jhiPrefix": "jhi"
   }
 }

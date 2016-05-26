@@ -44,7 +44,7 @@ spring:
         cassandra:
             contactPoints: localhost
             port: 9142
-            protocolVersion: V2
+            protocolVersion: V4
             compression: NONE
             keyspaceName: cassandra_unit_keyspace
             repositories:
@@ -78,6 +78,11 @@ jhipster:
         maxPoolSize: 50
         queueCapacity: 10000
     security:
+        authentication:
+            jwt:
+                secret: d56e91db6f678d711da8a70bc60bba26ca77e5eb
+                # Token is valid 24 hours
+                tokenValidityInSeconds: 86400
     metrics: # DropWizard Metrics configuration, used by MetricsConfiguration
         jmx.enabled: true
     swagger:

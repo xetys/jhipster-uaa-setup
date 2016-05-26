@@ -3,6 +3,7 @@ package de.stytex.foobar.web.rest.dto;
 public class KeyAndPasswordDTO {
 
     private String key;
+
     private String newPassword;
 
     public KeyAndPasswordDTO() {

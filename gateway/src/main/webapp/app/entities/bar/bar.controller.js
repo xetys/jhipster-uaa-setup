@@ -9,14 +9,15 @@
 
     function BarController ($scope, $state, Bar) {
         var vm = this;
+        
         vm.bars = [];
-        vm.loadAll = function() {
+
+        loadAll();
+
+        function loadAll() {
             Bar.query(function(result) {
                 vm.bars = result;
             });
-        };
-
-        vm.loadAll();
-        
+        }
     }
 })();

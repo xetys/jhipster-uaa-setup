@@ -8,7 +8,7 @@
     User.$inject = ['$resource'];
 
     function User ($resource) {
-        var service = $resource('uaa/api/account/users/:login', {}, {
+        var service = $resource('uaa/api/users/:login', {}, {
             'query': {method: 'GET', isArray: true},
             'get': {
                 method: 'GET',

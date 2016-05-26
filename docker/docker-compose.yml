@@ -7,12 +7,13 @@ services:
             - jhipster-registry:registry
         environment:
             - SPRING_PROFILES_ACTIVE=prod
-            - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://registry:8761/eureka/
-            - SPRING_CLOUD_CONFIG_URI=http://registry:8761/config
+            - SPRING_CLOUD_CONFIG_URI=http://admin:admin@registry:8761/config
             - SPRING_DATASOURCE_URL=jdbc:postgresql://postgresql:5432/app1
+            - JHIPSTER_SLEEP=10
+            - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://admin:admin@registry:8761/eureka
     app1-postgresql:
         container_name: app1-postgresql
-        image: postgres:9.5.1
+        image: postgres:9.5.2
         environment:
             - POSTGRES_USER=app1
             - POSTGRES_PASSWORD=
@@ -24,12 +25,13 @@ services:
             - jhipster-registry:registry
         environment:
             - SPRING_PROFILES_ACTIVE=prod
-            - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://registry:8761/eureka/
-            - SPRING_CLOUD_CONFIG_URI=http://registry:8761/config
+            - SPRING_CLOUD_CONFIG_URI=http://admin:admin@registry:8761/config
             - SPRING_DATASOURCE_URL=jdbc:postgresql://postgresql:5432/app2
+            - JHIPSTER_SLEEP=10
+            - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://admin:admin@registry:8761/eureka
     app2-postgresql:
         container_name: app2-postgresql
-        image: postgres:9.5.1
+        image: postgres:9.5.2
         environment:
             - POSTGRES_USER=app2
             - POSTGRES_PASSWORD=
@@ -41,15 +43,16 @@ services:
             - jhipster-registry:registry
         environment:
             - SPRING_PROFILES_ACTIVE=prod
-            - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://registry:8761/eureka/
-            - SPRING_CLOUD_CONFIG_URI=http://registry:8761/config
+            - SPRING_CLOUD_CONFIG_URI=http://admin:admin@registry:8761/config
             - SPRING_DATASOURCE_URL=jdbc:postgresql://postgresql:5432/gateway
             - SPRING_DATA_CASSANDRA_CONTACTPOINTS=cassandra
+            - JHIPSTER_SLEEP=30
+            - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://admin:admin@registry:8761/eureka
         ports:
             - 8080:8080
     gateway-postgresql:
         container_name: gateway-postgresql
-        image: postgres:9.5.1
+        image: postgres:9.5.2
         environment:
             - POSTGRES_USER=gateway
             - POSTGRES_PASSWORD=
@@ -61,29 +64,30 @@ services:
             - jhipster-registry:registry
         environment:
             - SPRING_PROFILES_ACTIVE=prod
-            - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://registry:8761/eureka/
-            - SPRING_CLOUD_CONFIG_URI=http://registry:8761/config
-            - SPRING_DATASOURCE_URL=jdbc:postgresql://postgresql:5432/UAA
+            - SPRING_CLOUD_CONFIG_URI=http://admin:admin@registry:8761/config
+            - SPRING_DATASOURCE_URL=jdbc:postgresql://postgresql:5432/uaa
+            - JHIPSTER_SLEEP=10
+            - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://admin:admin@registry:8761/eureka
     uaa-postgresql:
         container_name: uaa-postgresql
-        image: postgres:9.5.1
+        image: postgres:9.5.2
         environment:
-            - POSTGRES_USER=UAA
+            - POSTGRES_USER=uaa
             - POSTGRES_PASSWORD=
     
     jhipster-registry:
         extends:
             file: jhipster-registry.yml
             service: jhipster-registry
-    elk-elasticsearch:
+    jhipster-elasticsearch:
         extends:
-            file: elk.yml
-            service: elk-elasticsearch
-    elk-logstash:
+            file: jhipster-console.yml
+            service: jhipster-elasticsearch
+    jhipster-logstash:
         extends:
-          file: elk.yml
-          service: elk-logstash
+          file: jhipster-console.yml
+          service: jhipster-logstash
     jhipster-console:
         extends:
-            file: elk.yml
+            file: jhipster-console.yml
             service: jhipster-console

@@ -22,17 +22,15 @@ import org.springframework.security.oauth2.provider.token.store.JwtTokenStore;
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletResponse;
 
-
 @Configuration
 @EnableAuthorizationServer
 public class UaaConfiguration extends AuthorizationServerConfigurerAdapter {
 
     @EnableResourceServer
-    static class ResourceServcerConfiguration extends ResourceServerConfigurerAdapter {
+    public static class ResourceServerConfiguration extends ResourceServerConfigurerAdapter {
 
         @Inject
         TokenStore tokenStore;
-
 
         @Override
         public void configure(HttpSecurity http) throws Exception {
@@ -50,7 +48,6 @@ public class UaaConfiguration extends AuthorizationServerConfigurerAdapter {
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
                 .authorizeRequests()
-
                 .antMatchers("/api/register").permitAll()
                 .antMatchers("/api/activate").permitAll()
                 .antMatchers("/api/authenticate").permitAll()
@@ -83,7 +80,6 @@ public class UaaConfiguration extends AuthorizationServerConfigurerAdapter {
         }
     }
 
-
     @Override
     public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
         /*
@@ -99,8 +95,7 @@ public class UaaConfiguration extends AuthorizationServerConfigurerAdapter {
             .withClient("internal")
             .secret("internal") //only for testing!!! @TODO config or details service..
             .autoApprove(true)
-            .authorizedGrantTypes("client_credentials")
-        ;
+            .authorizedGrantTypes("client_credentials");
     }
 
 
@@ -117,9 +112,7 @@ public class UaaConfiguration extends AuthorizationServerConfigurerAdapter {
     private JHipsterProperties jHipsterProperties;
 
     /**
-     * apply the token converter (and enhander) for token store
-     *
-     * @return
+     * Apply the token converter (and enhander) for token store.
      */
     @Bean
     public JwtTokenStore tokenStore() {
@@ -128,7 +121,7 @@ public class UaaConfiguration extends AuthorizationServerConfigurerAdapter {
 
     /**
      * This bean generates an token enhancer, which manages the exchange between JWT acces tokens and Authentication
-     * in both direction
+     * in both direction.
      *
      * @return an access token converter configured with JHipsters secret key
      */
@@ -136,7 +129,6 @@ public class UaaConfiguration extends AuthorizationServerConfigurerAdapter {
     public JwtAccessTokenConverter jwtTokenEnhancer() {
         JwtAccessTokenConverter converter = new JwtAccessTokenConverter();
         converter.setSigningKey(jHipsterProperties.getSecurity().getAuthentication().getJwt().getSecret());
-
         return converter;
     }
 }

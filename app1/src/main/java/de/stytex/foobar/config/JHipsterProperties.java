@@ -31,6 +31,8 @@ public class JHipsterProperties {
 
     private final CorsConfiguration cors = new CorsConfiguration();
 
+    private final Ribbon ribbon = new Ribbon();
+
     public Async getAsync() {
         return async;
     }
@@ -61,6 +63,10 @@ public class JHipsterProperties {
 
     public CorsConfiguration getCors() {
         return cors;
+    }
+
+    public Ribbon getRibbon() {
+        return ribbon;
     }
 
     public static class Async {
@@ -473,6 +479,32 @@ public class JHipsterProperties {
 
             public void setQueueSize(int queueSize) { this.queueSize = queueSize; }
         }
+
+        private final SpectatorMetrics spectatorMetrics = new SpectatorMetrics();
+
+        public SpectatorMetrics getSpectatorMetrics() { return spectatorMetrics; }
+        
+        public static class SpectatorMetrics {
+
+            private boolean enabled = false;
+
+            public boolean isEnabled() { return enabled; }
+
+            public void setEnabled(boolean enabled) { this.enabled = enabled; }
+        }
     }
+
+    public static class Ribbon {
+
+        private String[] displayOnActiveProfiles;
+
+        public String[] getDisplayOnActiveProfiles() {
+            return displayOnActiveProfiles;
+        }
+        
+        public void setDisplayOnActiveProfiles(String[] displayOnActiveProfiles) {
+            this.displayOnActiveProfiles = displayOnActiveProfiles;
+        }
+    }  
 
 }

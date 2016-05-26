@@ -9,14 +9,15 @@
 
     function FooController ($scope, $state, Foo) {
         var vm = this;
+        
         vm.foos = [];
-        vm.loadAll = function() {
+
+        loadAll();
+
+        function loadAll() {
             Foo.query(function(result) {
                 vm.foos = result;
             });
-        };
-
-        vm.loadAll();
-        
+        }
     }
 })();

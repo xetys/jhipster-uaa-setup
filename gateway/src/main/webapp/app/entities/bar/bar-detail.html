@@ -2,12 +2,12 @@
 <div>
     <h2><span translate="gatewayApp.bar.detail.title">Bar</span> {{vm.bar.id}}</h2>
     <hr>
-    <dl class="dl-horizontal">
-        <dt><span translate="gatewayApp.bar.value">Value</dt></dt>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="dl-horizontal jh-entity-details">
+        <dt><span translate="gatewayApp.bar.value">Value</span></dt>
         <dd>
-            <span>{{vm.bar.value}}<span>
+            <span>{{vm.bar.value}}</span>
         </dd>
-        <hr>
     </dl>
 
     <button type="submit"

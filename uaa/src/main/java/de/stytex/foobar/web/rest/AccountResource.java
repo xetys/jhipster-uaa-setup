@@ -1,13 +1,14 @@
 package de.stytex.foobar.web.rest;
 
 import com.codahale.metrics.annotation.Timed;
-import de.stytex.foobar.domain.Authority;
+
 import de.stytex.foobar.domain.User;
 import de.stytex.foobar.repository.UserRepository;
 import de.stytex.foobar.security.SecurityUtils;
 import de.stytex.foobar.service.MailService;
 import de.stytex.foobar.service.UserService;
 import de.stytex.foobar.web.rest.dto.KeyAndPasswordDTO;
+import de.stytex.foobar.web.rest.dto.ManagedUserDTO;
 import de.stytex.foobar.web.rest.dto.UserDTO;
 import de.stytex.foobar.web.rest.util.HeaderUtil;
 
@@ -48,7 +49,7 @@ public class AccountResource {
     /**
      * POST  /register : register the user.
      *
-     * @param userDTO the user DTO
+     * @param managedUserDTO the managed user DTO
      * @param request the HTTP request
      * @return the ResponseEntity with status 201 (Created) if the user is registred or 400 (Bad Request) if the login or e-mail is already in use
      */
@@ -56,19 +57,19 @@ public class AccountResource {
                     method = RequestMethod.POST,
                     produces={MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_PLAIN_VALUE})
     @Timed
-    public ResponseEntity<?> registerAccount(@Valid @RequestBody UserDTO userDTO, HttpServletRequest request) {
+    public ResponseEntity<?> registerAccount(@Valid @RequestBody ManagedUserDTO managedUserDTO, HttpServletRequest request) {
 
         HttpHeaders textPlainHeaders = new HttpHeaders();
         textPlainHeaders.setContentType(MediaType.TEXT_PLAIN);
 
-        return userRepository.findOneByLogin(userDTO.getLogin())
+        return userRepository.findOneByLogin(managedUserDTO.getLogin().toLowerCase())
             .map(user -> new ResponseEntity<>("login already in use", textPlainHeaders, HttpStatus.BAD_REQUEST))
-            .orElseGet(() -> userRepository.findOneByEmail(userDTO.getEmail())
+            .orElseGet(() -> userRepository.findOneByEmail(managedUserDTO.getEmail())
                 .map(user -> new ResponseEntity<>("e-mail address already in use", textPlainHeaders, HttpStatus.BAD_REQUEST))
                 .orElseGet(() -> {
-                    User user = userService.createUserInformation(userDTO.getLogin(), userDTO.getPassword(),
-                    userDTO.getFirstName(), userDTO.getLastName(), userDTO.getEmail().toLowerCase(),
-                    userDTO.getLangKey());
+                    User user = userService.createUserInformation(managedUserDTO.getLogin(), managedUserDTO.getPassword(),
+                    managedUserDTO.getFirstName(), managedUserDTO.getLastName(), managedUserDTO.getEmail().toLowerCase(),
+                    managedUserDTO.getLangKey());
                     String baseUrl = request.getScheme() + // "http"
                     "://" +                                // "://"
                     request.getServerName() +              // "myhost"
@@ -138,7 +139,7 @@ public class AccountResource {
         method = RequestMethod.POST,
         produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
-    public ResponseEntity<String> saveAccount(@RequestBody UserDTO userDTO) {
+    public ResponseEntity<String> saveAccount(@Valid @RequestBody UserDTO userDTO) {
         Optional<User> existingUser = userRepository.findOneByEmail(userDTO.getEmail());
         if (existingUser.isPresent() && (!existingUser.get().getLogin().equalsIgnoreCase(userDTO.getLogin()))) {
             return ResponseEntity.badRequest().headers(HeaderUtil.createFailureAlert("user-management", "emailexists", "Email already in use")).body(null);
@@ -218,7 +219,7 @@ public class AccountResource {
 
     private boolean checkPasswordLength(String password) {
         return (!StringUtils.isEmpty(password) &&
-            password.length() >= UserDTO.PASSWORD_MIN_LENGTH &&
-            password.length() <= UserDTO.PASSWORD_MAX_LENGTH);
+            password.length() >= ManagedUserDTO.PASSWORD_MIN_LENGTH &&
+            password.length() <= ManagedUserDTO.PASSWORD_MAX_LENGTH);
     }
 }
