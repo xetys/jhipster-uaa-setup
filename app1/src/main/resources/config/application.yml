@@ -82,3 +82,11 @@ jhipster:
     ribbon:
         # comma seperated list of profiles to show a ribbon on the GUI
         displayOnActiveProfiles: dev
+
+
+hystrix:
+    command:
+        default:
+            execution:
+                timeout:
+                    enabled: false

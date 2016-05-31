@@ -2,59 +2,87 @@ package de.stytex.foobar.config;
 
 
 
-  import de.stytex.foobar.security.AuthoritiesConstants;
-  import org.springframework.context.annotation.Bean;
-  import org.springframework.context.annotation.Configuration;
-  import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
-  import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-  import org.springframework.security.config.http.SessionCreationPolicy;
-  import org.springframework.security.oauth2.config.annotation.web.configuration.EnableResourceServer;
-  import org.springframework.security.oauth2.config.annotation.web.configuration.ResourceServerConfigurerAdapter;
-  import org.springframework.security.oauth2.provider.token.TokenStore;
-  import org.springframework.security.oauth2.provider.token.store.JwtAccessTokenConverter;
-  import org.springframework.security.oauth2.provider.token.store.JwtTokenStore;
+import de.stytex.foobar.security.AuthoritiesConstants;
 
-  import javax.inject.Inject;
+import feign.RequestInterceptor;
 
-  @Configuration
-  @EnableResourceServer
-  @EnableGlobalMethodSecurity(prePostEnabled = true, securedEnabled = true)
-  public class MicroserviceSecurityConfiguration extends ResourceServerConfigurerAdapter {
+import org.springframework.cloud.security.oauth2.client.feign.OAuth2FeignRequestInterceptor;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
+import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.oauth2.config.annotation.web.configuration.EnableResourceServer;
+import org.springframework.security.oauth2.config.annotation.web.configuration.ResourceServerConfigurerAdapter;
+import org.springframework.security.oauth2.provider.token.TokenStore;
+import org.springframework.security.oauth2.provider.token.store.JwtAccessTokenConverter;
+import org.springframework.security.oauth2.provider.token.store.JwtTokenStore;
 
-      @Inject
-      JHipsterProperties jHipsterProperties;
+import org.springframework.security.oauth2.client.DefaultOAuth2ClientContext;
+import org.springframework.security.oauth2.client.resource.OAuth2ProtectedResourceDetails;
+import org.springframework.security.oauth2.client.token.grant.client.ClientCredentialsResourceDetails;
 
 
-      @Override
-      public void configure(HttpSecurity http) throws Exception {
-          http
-              .csrf()
-              .disable()
-              .headers()
-              .frameOptions()
-              .disable()
-          .and()
-              .sessionManagement()
-              .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-          .and()
-              .authorizeRequests()
-              .antMatchers("/api/**").authenticated()
-              .antMatchers("/management/**").hasAuthority(AuthoritiesConstants.ADMIN)
-              .antMatchers("/configuration/ui").permitAll();
+import javax.inject.Inject;
+import java.io.IOException;
 
-      }
+@Configuration
+@EnableResourceServer
+@EnableGlobalMethodSecurity(prePostEnabled = true, securedEnabled = true)
+public class MicroserviceSecurityConfiguration extends ResourceServerConfigurerAdapter {
 
-      @Bean
-      public TokenStore tokenStore() {
-          return new JwtTokenStore(jwtAccessTokenConverter());
-      }
+  @Inject
+  JHipsterProperties jHipsterProperties;
 
-      @Bean
-      public JwtAccessTokenConverter jwtAccessTokenConverter() {
-          JwtAccessTokenConverter converter = new JwtAccessTokenConverter();
-          converter.setSigningKey(jHipsterProperties.getSecurity().getAuthentication().getJwt().getSecret());
 
-          return converter;
-      }
+  @Override
+  public void configure(HttpSecurity http) throws Exception {
+      http
+          .csrf()
+          .disable()
+          .headers()
+          .frameOptions()
+          .disable()
+      .and()
+          .sessionManagement()
+          .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+      .and()
+          .authorizeRequests()
+          .antMatchers("/api/**").authenticated()
+          .antMatchers("/api/clients/**").permitAll()
+          .antMatchers("/management/**").hasAuthority(AuthoritiesConstants.ADMIN)
+          .antMatchers("/configuration/ui").permitAll();
+
   }
+
+  @Bean
+  public TokenStore tokenStore() {
+      return new JwtTokenStore(jwtAccessTokenConverter());
+  }
+
+  @Bean
+  public JwtAccessTokenConverter jwtAccessTokenConverter() {
+      JwtAccessTokenConverter converter = new JwtAccessTokenConverter();
+      converter.setSigningKey(jHipsterProperties.getSecurity().getAuthentication().getJwt().getSecret());
+
+      return converter;
+  }
+
+  @Bean
+  public OAuth2ProtectedResourceDetails geOAuth2ProtectedResourceDetails() {
+      ClientCredentialsResourceDetails resource = new ClientCredentialsResourceDetails();
+
+      resource.setAccessTokenUri(jHipsterProperties.getSecurity().getClientAuthorization().getTokenUrl());
+      resource.setGrantType("client_credentials");
+      resource.setClientId(jHipsterProperties.getSecurity().getClientAuthorization().getClientId());
+      resource.setClientSecret(jHipsterProperties.getSecurity().getClientAuthorization().getClientSecret());
+
+      return resource;
+  }
+
+  @Bean
+  public RequestInterceptor getOAuth2RequestInterceptor() throws IOException {
+      return new OAuth2FeignRequestInterceptor(new DefaultOAuth2ClientContext(), geOAuth2ProtectedResourceDetails());
+  }
+}
 

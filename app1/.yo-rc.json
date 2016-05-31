@@ -1,6 +1,6 @@
 {
   "generator-jhipster": {
-    "jhipsterVersion": "3.3.0",
+    "jhipsterVersion": "3.4.0",
     "baseName": "app1",
     "packageName": "de.stytex.foobar",
     "packageFolder": "de/stytex/foobar",

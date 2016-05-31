@@ -71,6 +71,11 @@ jhipster:
                 secret: my-secret-token-to-change-in-production
                 # Token is valid 24 hours
                 tokenValidityInSeconds: 86400
+        clientAuthorization:
+            # change this depending on your authorization server
+            tokenUrl: http://localhost:8080/uaa/oauth/token
+            clientId: internal
+            clientSecret: internal
     mail: # specific JHipster mail property, for standard properties see MailProperties
         from: app2@localhost
     metrics: # DropWizard Metrics configuration, used by MetricsConfiguration

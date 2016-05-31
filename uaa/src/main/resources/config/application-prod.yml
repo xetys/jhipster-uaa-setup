@@ -73,6 +73,11 @@ jhipster:
                 secret: 3e4b7a96a9d17abb2726c068020653a9baa6b3f8
                 # Token is valid 24 hours
                 tokenValidityInSeconds: 86400
+        clientAuthorization:
+            # change this depending on your authorization server
+            tokenUrl: http://localhost:8080/uaa/oauth/token
+            clientId: internal
+            clientSecret: internal
     mail: # specific JHipster mail property, for standard properties see MailProperties
         from: uaa@localhost
     metrics: # DropWizard Metrics configuration, used by MetricsConfiguration

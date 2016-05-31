@@ -3,6 +3,10 @@ package de.stytex.foobar.config;
 
 
   import de.stytex.foobar.security.AuthoritiesConstants;
+
+  import feign.RequestInterceptor;
+
+  import org.springframework.cloud.security.oauth2.client.feign.OAuth2FeignRequestInterceptor;
   import org.springframework.context.annotation.Bean;
   import org.springframework.context.annotation.Configuration;
   import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
@@ -14,7 +18,13 @@ package de.stytex.foobar.config;
   import org.springframework.security.oauth2.provider.token.store.JwtAccessTokenConverter;
   import org.springframework.security.oauth2.provider.token.store.JwtTokenStore;
 
+  import org.springframework.security.oauth2.client.DefaultOAuth2ClientContext;
+  import org.springframework.security.oauth2.client.resource.OAuth2ProtectedResourceDetails;
+  import org.springframework.security.oauth2.client.token.grant.client.ClientCredentialsResourceDetails;
+
+
   import javax.inject.Inject;
+  import java.io.IOException;
 
   @Configuration
   @EnableResourceServer
@@ -55,6 +65,23 @@ package de.stytex.foobar.config;
           converter.setSigningKey(jHipsterProperties.getSecurity().getAuthentication().getJwt().getSecret());
 
           return converter;
+      }
+
+      @Bean
+      public OAuth2ProtectedResourceDetails geOAuth2ProtectedResourceDetails() {
+          ClientCredentialsResourceDetails resource = new ClientCredentialsResourceDetails();
+
+          resource.setAccessTokenUri(jHipsterProperties.getSecurity().getClientAuthorization().getTokenUrl());
+          resource.setGrantType("client_credentials");
+          resource.setClientId(jHipsterProperties.getSecurity().getClientAuthorization().getClientId());
+          resource.setClientSecret(jHipsterProperties.getSecurity().getClientAuthorization().getClientSecret());
+
+          return resource;
+      }
+
+      @Bean
+      public RequestInterceptor getOAuth2RequestInterceptor() throws IOException {
+          return new OAuth2FeignRequestInterceptor(new DefaultOAuth2ClientContext(), geOAuth2ProtectedResourceDetails());
       }
   }
 

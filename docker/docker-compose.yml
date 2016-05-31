@@ -6,10 +6,10 @@ services:
             - app1-postgresql:postgresql
             - jhipster-registry:registry
         environment:
-            - SPRING_PROFILES_ACTIVE=prod
+            - SPRING_PROFILES_ACTIVE=dev
             - SPRING_CLOUD_CONFIG_URI=http://admin:admin@registry:8761/config
             - SPRING_DATASOURCE_URL=jdbc:postgresql://postgresql:5432/app1
-            - JHIPSTER_SLEEP=10
+            - JHIPSTER_SLEEP=0
             - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://admin:admin@registry:8761/eureka
     app1-postgresql:
         container_name: app1-postgresql
@@ -24,10 +24,10 @@ services:
             - app2-postgresql:postgresql
             - jhipster-registry:registry
         environment:
-            - SPRING_PROFILES_ACTIVE=prod
+            - SPRING_PROFILES_ACTIVE=dev
             - SPRING_CLOUD_CONFIG_URI=http://admin:admin@registry:8761/config
             - SPRING_DATASOURCE_URL=jdbc:postgresql://postgresql:5432/app2
-            - JHIPSTER_SLEEP=10
+            - JHIPSTER_SLEEP=0
             - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://admin:admin@registry:8761/eureka
     app2-postgresql:
         container_name: app2-postgresql
