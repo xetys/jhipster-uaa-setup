@@ -60,6 +60,9 @@ liquibase:
 server:
     port: 8081
 
+
+
+
 # ===================================================================
 # JHipster specific properties
 # ===================================================================
@@ -73,9 +76,11 @@ jhipster:
                 tokenValidityInSeconds: 86400
         clientAuthorization:
             # change this depending on your authorization server
-            tokenUrl: http://localhost:8080/uaa/oauth/token
+            tokenUrl: http://localhost:9999/oauth/token
+            tokenServiceId: uaa
             clientId: internal
             clientSecret: internal
+
     mail: # specific JHipster mail property, for standard properties see MailProperties
         from: app1@localhost
     metrics: # DropWizard Metrics configuration, used by MetricsConfiguration
