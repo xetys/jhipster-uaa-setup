@@ -8,7 +8,11 @@ import org.springframework.stereotype.Component;
 import java.net.URI;
 import java.net.URISyntaxException;
 
-
+/**
+ * Created on 31.05.16.
+ *
+ * @author David Steiman, K-TEL Communications GmbH
+ */
 @Component
 public class LoadBalancedResourceDetails extends ClientCredentialsResourceDetails {
 
