@@ -1,4 +1,4 @@
-package com.mycompany.myapp.client;
+package com.otherpkg;
 
 import com.mycompany.myapp.config.LoadBalancedResourceDetails;
 import feign.RequestInterceptor;
@@ -15,7 +15,6 @@ import java.io.IOException;
  *
  * @author David Steiman
  */
-@Configuration
 public class OAuth2InterceptedFeignConfiguration {
     @Inject
     LoadBalancedResourceDetails loadBalancedResourceDetails;

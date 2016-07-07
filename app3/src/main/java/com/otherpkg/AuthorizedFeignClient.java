@@ -1,5 +1,6 @@
-package com.mycompany.myapp.client;
+package com.otherpkg;
 
+import com.otherpkg.OAuth2InterceptedFeignConfiguration;
 import org.springframework.cloud.netflix.feign.FeignClient;
 import org.springframework.cloud.netflix.feign.FeignClientsConfiguration;
 import org.springframework.core.annotation.AliasFor;
@@ -14,6 +15,10 @@ public @interface AuthorizedFeignClient {
     @AliasFor(annotation = FeignClient.class, attribute = "name")
     String name() default "";
 
+
+    @AliasFor(annotation = FeignClient.class, attribute = "value")
+    String value() default "";
+
     /**
      * A custom <code>@Configuration</code> for the feign client. Can contain override
      * <code>@Bean</code> definition for the pieces that make up the client, for instance
@@ -21,7 +26,7 @@ public @interface AuthorizedFeignClient {
      *
      * @see FeignClientsConfiguration for the defaults
      */
-    @AliasFor(annotation = FeignClient.class, attribute = "configuration")
+    //@AliasFor(annotation = FeignClient.class, attribute = "configuration")
     Class<?>[] configuration() default OAuth2InterceptedFeignConfiguration.class;
 
     /**

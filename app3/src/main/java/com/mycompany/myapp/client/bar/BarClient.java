@@ -1,6 +1,6 @@
 package com.mycompany.myapp.client.bar;
 
-import com.mycompany.myapp.client.AuthorizedFeignClient;
+import com.otherpkg.AuthorizedFeignClient;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 

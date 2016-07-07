@@ -1,6 +1,7 @@
-package com.mycompany.myapp.client.foo;
+package com.mycompany.myapp.client;
 
-import com.otherpkg.AuthorizedFeignClient;
+import com.mycompany.myapp.client.foo.Foo;
+import org.springframework.cloud.netflix.feign.FeignClient;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -11,8 +12,8 @@ import java.util.List;
  *
  * @author David Steiman
  */
-@AuthorizedFeignClient(name = "app1")
-public interface FooClient {
+@FeignClient("app1")
+public interface SecondFooClient {
     @RequestMapping(method = RequestMethod.GET, value = "api/foos")
     List<Foo> getFoos();
 }
