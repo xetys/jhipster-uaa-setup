@@ -1,7 +1,8 @@
 {
   "generator-jhipster": {
-    "jhipsterVersion": "3.4.0",
+    "jhipsterVersion": "3.4.2",
     "baseName": "app2",
+    "uaaBaseName": "uaa",
     "packageName": "de.stytex.foobar",
     "packageFolder": "de/stytex/foobar",
     "serverPort": "8082",

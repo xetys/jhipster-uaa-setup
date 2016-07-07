@@ -15,7 +15,7 @@ To optimize the app1 client for production, run:
 
 To ensure everything worked, run:
 
-    java -jar build/libs/*.war --spring.profiles.active=prod
+    java -jar build/libs/*.war
 
 ## Continuous Integration
 

@@ -1,30 +1,28 @@
 {
   "generator-jhipster": {
-    "jhipsterVersion": "3.4.0",
+    "jhipsterVersion": "3.4.2",
     "baseName": "app1",
     "packageName": "de.stytex.foobar",
     "packageFolder": "de/stytex/foobar",
     "serverPort": "8081",
     "authenticationType": "uaa",
+    "uaaBaseName": "uaa",
     "hibernateCache": "no",
     "databaseType": "sql",
     "devDatabaseType": "h2Disk",
     "prodDatabaseType": "postgresql",
     "searchEngine": "no",
     "buildTool": "gradle",
-    "jwtSecretKey": "326ce1f868db115df5c36f532978c2d1a0fc5b2c",
+    "jwtSecretKey": "21b48e4daabc73b6015be78c549e8f2b551dedbb",
     "enableTranslation": true,
     "applicationType": "microservice",
     "testFrameworks": [],
+    "jhiPrefix": "jhi",
     "skipClient": true,
     "skipUserManagement": true,
     "nativeLanguage": "en",
     "languages": [
       "en"
-    ],
-    "clusteredHttpSession": "no",
-    "websocket": "no",
-    "enableSocialSignIn": false,
-    "jhiPrefix": "jhi"
+    ]
   }
 }

@@ -1,5 +1,7 @@
 package de.stytex.foobar.config;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.client.loadbalancer.LoadBalancerClient;
 import org.springframework.security.oauth2.client.token.grant.client.ClientCredentialsResourceDetails;
@@ -8,19 +10,17 @@ import org.springframework.stereotype.Component;
 import java.net.URI;
 import java.net.URISyntaxException;
 
-/**
- * Created on 31.05.16.
- *
- * @author David Steiman, K-TEL Communications GmbH
- */
+
 @Component
 public class LoadBalancedResourceDetails extends ClientCredentialsResourceDetails {
+
+    Logger log = LoggerFactory.getLogger(LoadBalancedResourceDetails.class);
 
     @Autowired
     public LoadBalancedResourceDetails(JHipsterProperties jHipsterProperties) {
         this.jHipsterProperties = jHipsterProperties;
 
-        setAccessTokenUri(jHipsterProperties.getSecurity().getClientAuthorization().getTokenUrl());
+        setAccessTokenUri(jHipsterProperties.getSecurity().getClientAuthorization().getAccessTokenUri());
         setClientId(jHipsterProperties.getSecurity().getClientAuthorization().getClientId());
         setClientSecret(jHipsterProperties.getSecurity().getClientAuthorization().getClientSecret());
         setGrantType("client_credentials");
@@ -40,17 +40,15 @@ public class LoadBalancedResourceDetails extends ClientCredentialsResourceDetail
     @Override
     public String getAccessTokenUri() {
         String serviceName = jHipsterProperties.getSecurity().getClientAuthorization().getTokenServiceId();
-        if (loadBalancerClient != null && !serviceName.isEmpty()) {
+        if (loadBalancerClient != null && serviceName != null && !serviceName.isEmpty()) {
             String newUrl;
             try {
-                newUrl = loadBalancerClient.reconstructURI(
+                return loadBalancerClient.reconstructURI(
                     loadBalancerClient.choose(serviceName),
                     new URI(super.getAccessTokenUri())
                 ).toString();
-
-                return newUrl;
             } catch (URISyntaxException e) {
-                e.printStackTrace();
+                log.error("{}: {}", e.getClass().toString(), e.getMessage());
 
                 return super.getAccessTokenUri();
             }

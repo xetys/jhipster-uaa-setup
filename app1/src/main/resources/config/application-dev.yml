@@ -39,7 +39,7 @@ spring:
     jpa:
         database-platform: de.stytex.foobar.domain.util.FixedH2Dialect
         database: H2
-        show_sql: true
+        show-sql: true
         properties:
             hibernate.cache.use_second_level_cache: false
             hibernate.cache.use_query_cache: false
@@ -60,9 +60,6 @@ liquibase:
 server:
     port: 8081
 
-
-
-
 # ===================================================================
 # JHipster specific properties
 # ===================================================================
@@ -76,11 +73,10 @@ jhipster:
                 tokenValidityInSeconds: 86400
         clientAuthorization:
             # change this depending on your authorization server
-            tokenUrl: http://localhost:9999/oauth/token
+            accessTokenUri: http://uaa:9999/oauth/token
             tokenServiceId: uaa
             clientId: internal
             clientSecret: internal
-
     mail: # specific JHipster mail property, for standard properties see MailProperties
         from: app1@localhost
     metrics: # DropWizard Metrics configuration, used by MetricsConfiguration

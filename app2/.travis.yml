@@ -1,10 +1,16 @@
-language: node_js
-node_js:
-  - "4.4.3"
+language: java
+jdk:
+  - oraclejdk8
 sudo: false
-before_install: npm install -g gulp
-install: npm install
-before_script: gulp build
+cache:
+  directories:
+    - $HOME/.gradle
+before_install:
+  - java -version
+script:
+  - ./gradlew clean
+  - ./gradlew test
+  - ./gradlew bootRepackage -Pprod -x test
 notifications:
   webhooks:
     on_success: change  # options: [always|never|change] default: always

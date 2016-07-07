@@ -36,7 +36,7 @@ spring:
     jpa:
         database-platform: de.stytex.foobar.domain.util.FixedPostgreSQL82Dialect
         database: POSTGRESQL
-        show_sql: false
+        show-sql: false
         properties:
             hibernate.cache.use_second_level_cache: false
             hibernate.cache.use_query_cache: false
@@ -70,12 +70,13 @@ jhipster:
     security:
         authentication:
             jwt:
-                secret: 326ce1f868db115df5c36f532978c2d1a0fc5b2c
+                secret: 21b48e4daabc73b6015be78c549e8f2b551dedbb
                 # Token is valid 24 hours
                 tokenValidityInSeconds: 86400
         clientAuthorization:
             # change this depending on your authorization server
-            tokenUrl: http://localhost:8080/uaa/oauth/token
+            accessTokenUri: http://uaa:9999/oauth/token
+            tokenServiceId: uaa
             clientId: internal
             clientSecret: internal
     mail: # specific JHipster mail property, for standard properties see MailProperties

@@ -1,20 +1,22 @@
 package de.stytex.foobar.config;
 
 
+
 import de.stytex.foobar.security.AuthoritiesConstants;
-import feign.RequestInterceptor;
-import org.springframework.cloud.security.oauth2.client.feign.OAuth2FeignRequestInterceptor;
+
+
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
-import org.springframework.security.oauth2.client.DefaultOAuth2ClientContext;
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableResourceServer;
 import org.springframework.security.oauth2.config.annotation.web.configuration.ResourceServerConfigurerAdapter;
 import org.springframework.security.oauth2.provider.token.TokenStore;
 import org.springframework.security.oauth2.provider.token.store.JwtAccessTokenConverter;
 import org.springframework.security.oauth2.provider.token.store.JwtTokenStore;
+
+
 
 import javax.inject.Inject;
 import java.io.IOException;
@@ -43,7 +45,7 @@ public class MicroserviceSecurityConfiguration extends ResourceServerConfigurerA
             .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
         .and()
             .authorizeRequests()
-            .antMatchers("/api/**").permitAll()
+            .antMatchers("/api/**").authenticated()
             .antMatchers("/management/**").hasAuthority(AuthoritiesConstants.ADMIN)
             .antMatchers("/configuration/ui").permitAll();
 
@@ -60,11 +62,6 @@ public class MicroserviceSecurityConfiguration extends ResourceServerConfigurerA
         converter.setSigningKey(jHipsterProperties.getSecurity().getAuthentication().getJwt().getSecret());
 
         return converter;
-    }
-
-    @Bean
-    public RequestInterceptor getOAuth2RequestInterceptor() throws IOException {
-        return new OAuth2FeignRequestInterceptor(new DefaultOAuth2ClientContext(), loadBalancedResourceDetails);
     }
 }
 
