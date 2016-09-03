@@ -1,12 +1,12 @@
 version: '2'
 services:
-    app1-postgresql:
-        container_name: app1-postgresql
-        image: postgres:9.5.2
+    foo-postgresql:
+        container_name: foo-postgresql
+        image: postgres:9.5.3
         # volumes:
-        #     - ~/volumes/jhipster/app1/postgresql/:/var/lib/postgresql/
+        #     - ~/volumes/jhipster/foo/postgresql/:/var/lib/postgresql/
         environment:
-            - POSTGRES_USER=app1
+            - POSTGRES_USER=foo
             - POSTGRES_PASSWORD=
         ports:
             - 5432:5432

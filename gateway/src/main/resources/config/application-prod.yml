@@ -31,18 +31,22 @@ spring:
         livereload:
             enabled: false
     datasource:
+        type: com.zaxxer.hikari.HikariDataSource
         url: jdbc:postgresql://localhost:5432/gateway
         name:
         username: gateway
         password:
     jpa:
-        database-platform: de.stytex.foobar.domain.util.FixedPostgreSQL82Dialect
+        database-platform: com.mycompany.myapp.domain.util.FixedPostgreSQL82Dialect
         database: POSTGRESQL
-        show_sql: false
+        show-sql: false
         properties:
-            hibernate.cache.use_second_level_cache: false
+            hibernate.cache.use_second_level_cache: true
             hibernate.cache.use_query_cache: false
             hibernate.generate_statistics: false
+            hibernate.cache.region.factory_class: com.mycompany.myapp.config.hazelcast.HazelcastCacheRegionFactory
+            hibernate.cache.use_minimal_puts: true
+            hibernate.cache.hazelcast.use_lite_member: true
     data:
         cassandra:
             contactPoints: localhost
@@ -82,12 +86,10 @@ jhipster:
     http:
         cache: # Used by the CachingHttpHeadersFilter
             timeToLiveInDays: 1461
-    security:
-        authentication:
-            jwt:
-                secret: d56e91db6f678d711da8a70bc60bba26ca77e5eb
-                # Token is valid 24 hours
-                tokenValidityInSeconds: 86400
+    cache: # Hibernate 2nd level cache, used by CacheConfiguration
+        timeToLiveSeconds: 3600
+        hazelcast:
+            backupCount: 1
     mail: # specific JHipster mail property, for standard properties see MailProperties
         from: gateway@localhost
     metrics: # DropWizard Metrics configuration, used by MetricsConfiguration
@@ -113,5 +115,3 @@ jhipster:
         spectator-metrics: # Reports Spectator Circuit Breaker metrics in the logs
             enabled: false
             # edit spring.metrics.export.delay-millis to set report frequency
-    swagger: # swagger is disabled. It can be disabled by pasing 'no-swagger' profile at run time as well
-        enabled: false

@@ -13,8 +13,8 @@
 
 eureka:
     instance:
-        appname: app1
-        instanceId: app1:${spring.application.instance_id:${random.value}}
+        appname: foo
+        instanceId: foo:${spring.application.instance_id:${random.value}}
 
 ribbon:
     eureka:
@@ -28,17 +28,20 @@ management:
 
 spring:
     application:
-        name: app1
+        name: foo
     profiles:
         # The commented value for `active` can be replaced with valid spring profiles to load.
         # Otherwise, it will be filled in by gradle when building the WAR file
         # Either way, it can be overridden by `--spring.profiles.active` value passed in the commandline or `-Dspring.profiles.active` set in `JAVA_OPTS`
         active: #spring.profiles.active#
+    jackson:
+        serialization.write_dates_as_timestamps: false
     jpa:
         open-in-view: false
         hibernate:
             ddl-auto: none
-            naming-strategy: org.springframework.boot.orm.jpa.hibernate.SpringNamingStrategy
+            naming:
+                strategy: org.springframework.boot.orm.jpa.hibernate.SpringNamingStrategy
     messages:
         basename: i18n/messages
     mvc:
@@ -68,10 +71,10 @@ jhipster:
         #allow-credentials: true
         #max-age: 1800
     mail:
-        from: app1@localhost
+        from: foo@localhost
     swagger:
-        title: app1 API
-        description: app1 API documentation
+        title: foo API
+        description: foo API documentation
         version: 0.0.1
         termsOfServiceUrl:
         contactName:
@@ -82,11 +85,3 @@ jhipster:
     ribbon:
         # comma seperated list of profiles to show a ribbon on the GUI
         displayOnActiveProfiles: dev
-
-
-hystrix:
-    command:
-        default:
-            execution:
-                timeout:
-                    enabled: false

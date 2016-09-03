@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<uml:Model xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:uml="http://www.eclipse.org/uml2/4.0.0/UML" xmi:id="_rOgeAAtfEeWATac42w0kFQ" name="model">
+  <eAnnotations xmi:id="_rOgeAQtfEeWATac42w0kFQ" source="genmymodel">
+    <details xmi:id="_rOgeAgtfEeWATac42w0kFQ" key="uuid" value="_hUw9UAqREeWNVPA9hBwttA"/>
+  </eAnnotations>
+  <packageImport xmi:id="_rOgeAwtfEeWATac42w0kFQ">
+    <eAnnotations xmi:id="_rOgeBAtfEeWATac42w0kFQ" source="genmymodel">
+      <details xmi:id="_rOgeBQtfEeWATac42w0kFQ" key="uuid" value="_hUyygAqREeWNVPA9hBwttA"/>
+    </eAnnotations>
+    <importedPackage href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#/"/>
+  </packageImport>
+  <packageImport xmi:id="_rOgeBgtfEeWATac42w0kFQ">
+    <eAnnotations xmi:id="_rOgeBwtfEeWATac42w0kFQ" source="genmymodel">
+      <details xmi:id="_rOgeCAtfEeWATac42w0kFQ" key="uuid" value="_hUyygQqREeWNVPA9hBwttA"/>
+    </eAnnotations>
+    <importedPackage href="pathmap://GENMYMODEL_LIBRARIES/GenMyModelPrimitiveTypes.library.uml#/"/>
+  </packageImport>
+  <packagedElement xsi:type="uml:Class" xmi:id="_rOgeCQtfEeWATac42w0kFQ" name="Book">
+    <ownedAttribute xmi:id="_rOgeDAtfEeWATac42w0kFQ" name="title">
+      <type xsi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#//Stringy"/>
+    </ownedAttribute>
+    <ownedAttribute xmi:id="_rOgeDwtfEeWATac42w0kFQ" name="description">
+      <type xsi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#//String"/>
+    </ownedAttribute>
+    <ownedAttribute xmi:id="_rOgeEgtfEeWATac42w0kFQ" name="publicationDate" type="_rOgeLwtfEeWATac42w0kFQ">
+    </ownedAttribute>
+    <ownedAttribute xmi:id="_rOgeFQtfEeWATac42w0kFQ" name="price" type="_rOgeMgtfEeWATac42w0kFQ">
+    </ownedAttribute>
+  </packagedElement>
+</uml:Model>

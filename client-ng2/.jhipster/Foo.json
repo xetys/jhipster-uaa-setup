@@ -1,0 +1,16 @@
+{
+    "relationships": [],
+    "fields": [
+        {
+            "fieldName": "value",
+            "fieldType": "String"
+        }
+    ],
+    "changelogDate": "20160401130145",
+    "dto": "no",
+    "service": "no",
+    "entityTableName": "foo",
+    "pagination": "no",
+    "microserviceName": "app1",
+    "searchEngine": "no"
+}

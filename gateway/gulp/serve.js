@@ -1,3 +1,5 @@
+'use strict';
+
 var gulp = require('gulp'),
     util = require('./utils'),
     url = require('url'),
@@ -57,4 +59,4 @@ module.exports = function () {
     });
 
     gulp.start('watch');
-}
+};

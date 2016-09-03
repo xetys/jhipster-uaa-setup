@@ -85,7 +85,7 @@ these new files.
 
 To ensure everything worked, run:
 
-    java -jar build/libs/*.war --spring.profiles.active=prod
+    java -jar build/libs/*.war
 
 Then navigate to [http://localhost:8080](http://localhost:8080) in your browser.
 

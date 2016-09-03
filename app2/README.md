@@ -1,4 +1,4 @@
-# app2
+# bar
 
 This application was generated using JHipster, you can find documentation and help at [https://jhipster.github.io](https://jhipster.github.io).
 
@@ -9,7 +9,7 @@ Before you can build this project, you must install and configure the following 
 
 ## Building for production
 
-To optimize the app2 client for production, run:
+To optimize the bar client for production, run:
 
     ./gradlew -Pprod clean bootRepackage
 
@@ -21,9 +21,9 @@ To ensure everything worked, run:
 
 To setup this project in Jenkins, use the following configuration:
 
-* Project name: `app2`
+* Project name: `bar`
 * Source Code Management
-    * Git Repository: `git@github.com:xxxx/app2.git`
+    * Git Repository: `git@github.com:xxxx/bar.git`
     * Branches to build: `*/master`
     * Additional Behaviours: `Wipe out repository & force clone`
 * Build Triggers

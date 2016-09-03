@@ -29,18 +29,22 @@ spring:
         livereload:
             enabled: false
     datasource:
-        url: jdbc:postgresql://localhost:5432/app1
+        type: com.zaxxer.hikari.HikariDataSource
+        url: jdbc:postgresql://localhost:5432/foo
         name:
-        username: app1
+        username: foo
         password:
     jpa:
-        database-platform: de.stytex.foobar.domain.util.FixedPostgreSQL82Dialect
+        database-platform: com.mycompany.myapp.domain.util.FixedPostgreSQL82Dialect
         database: POSTGRESQL
         show-sql: false
         properties:
-            hibernate.cache.use_second_level_cache: false
+            hibernate.cache.use_second_level_cache: true
             hibernate.cache.use_query_cache: false
             hibernate.generate_statistics: false
+            hibernate.cache.region.factory_class: com.mycompany.myapp.config.hazelcast.HazelcastCacheRegionFactory
+            hibernate.cache.use_minimal_puts: true
+            hibernate.cache.hazelcast.use_lite_member: true
     mail:
         host: localhost
         port: 25
@@ -67,20 +71,18 @@ jhipster:
     http:
         cache: # Used by the CachingHttpHeadersFilter
             timeToLiveInDays: 1461
+    cache: # Hibernate 2nd level cache, used by CacheConfiguration
+        timeToLiveSeconds: 3600
+        hazelcast:
+            backupCount: 1
     security:
-        authentication:
-            jwt:
-                secret: 21b48e4daabc73b6015be78c549e8f2b551dedbb
-                # Token is valid 24 hours
-                tokenValidityInSeconds: 86400
-        clientAuthorization:
-            # change this depending on your authorization server
-            accessTokenUri: http://uaa:9999/oauth/token
+        client-authorization:
+            accessTokenUri: http://uaa/oauth/token
             tokenServiceId: uaa
             clientId: internal
             clientSecret: internal
     mail: # specific JHipster mail property, for standard properties see MailProperties
-        from: app1@localhost
+        from: foo@localhost
     metrics: # DropWizard Metrics configuration, used by MetricsConfiguration
         jmx.enabled: true
         spark:
@@ -91,7 +93,7 @@ jhipster:
             enabled: false
             host: localhost
             port: 2003
-            prefix: app1
+            prefix: foo
         logs: # Reports Dropwizard metrics in the logs
             enabled: false
             reportFrequency: 60 # in seconds
@@ -104,5 +106,3 @@ jhipster:
         spectator-metrics: # Reports Spectator Circuit Breaker metrics in the logs
             enabled: false
             # edit spring.metrics.export.delay-millis to set report frequency
-    swagger: # swagger is disabled. It can be disabled by pasing 'no-swagger' profile at run time as well
-        enabled: false

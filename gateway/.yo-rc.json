@@ -1,11 +1,13 @@
 {
   "generator-jhipster": {
-    "jhipsterVersion": "3.3.0",
+    "jhipsterVersion": "3.6.1",
     "baseName": "gateway",
-    "packageName": "de.stytex.foobar",
-    "packageFolder": "de/stytex/foobar",
+    "packageName": "com.mycompany.myapp",
+    "packageFolder": "com/mycompany/myapp",
     "serverPort": "8080",
-    "hibernateCache": "no",
+    "authenticationType": "uaa",
+    "uaaBaseName": "uaa",
+    "hibernateCache": "hazelcast",
     "clusteredHttpSession": "no",
     "websocket": "no",
     "databaseType": "sql",
@@ -16,15 +18,12 @@
     "useSass": false,
     "applicationType": "gateway",
     "testFrameworks": [],
+    "jhiPrefix": "jhi",
     "enableTranslation": true,
     "nativeLanguage": "en",
     "languages": [
       "en"
     ],
-    "authenticationType": "uaa",
-    "uaaBaseName": "uaa",
-    "jwtSecretKey": "d56e91db6f678d711da8a70bc60bba26ca77e5eb",
-    "jhiPrefix": "jhi",
     "enableSocialSignIn": false
   }
 }

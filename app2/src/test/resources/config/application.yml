@@ -14,25 +14,29 @@ eureka:
     client:
         enabled: false
     instance:
-        appname: app2
-        instanceId: app2:${spring.application.instance_id:${random.value}}
+        appname: bar
+        instanceId: bar:${spring.application.instance_id:${random.value}}
 
 spring:
     application:
-        name: app2
+        name: bar
+    jackson:
+        serialization.write_dates_as_timestamps: false
     datasource:
-        url: jdbc:h2:mem:app2;DB_CLOSE_DELAY=-1
+        type: com.zaxxer.hikari.HikariDataSource
+        url: jdbc:h2:mem:bar;DB_CLOSE_DELAY=-1
         name:
         username:
         password:
     jpa:
-        database-platform: de.stytex.foobar.domain.util.FixedH2Dialect
+        database-platform: com.mycompany.myapp.domain.util.FixedH2Dialect
         database: H2
         open-in-view: false
         show-sql: true
         hibernate:
             ddl-auto: none
-            naming-strategy: org.springframework.boot.orm.jpa.hibernate.SpringNamingStrategy
+            naming:
+                strategy: org.springframework.boot.orm.jpa.hibernate.SpringNamingStrategy
         properties:
             hibernate.cache.use_second_level_cache: false
             hibernate.cache.use_query_cache: false
@@ -69,20 +73,19 @@ jhipster:
     security:
         authentication:
             jwt:
-                secret: defeff8186a92c918c0378628ddd1dde9f6748ad
+                secret: 34d123c489f167ce5df1481f169b1329f8827a4c
                 # Token is valid 24 hours
                 tokenValidityInSeconds: 86400
-        clientAuthorization:
-            # change this depending on your authorization server
-            accessTokenUri: http://uaa:9999/oauth/token
+        client-authorization:
+            accessTokenUri: http://uaa/oauth/token
             tokenServiceId: uaa
             clientId: internal
             clientSecret: internal
     metrics: # DropWizard Metrics configuration, used by MetricsConfiguration
         jmx.enabled: true
     swagger:
-        title: app2 API
-        description: app2 API documentation
+        title: bar API
+        description: bar API documentation
         version: 0.0.1
         termsOfServiceUrl:
         contactName:
@@ -90,4 +93,3 @@ jhipster:
         contactEmail:
         license:
         licenseUrl:
-        enabled: false

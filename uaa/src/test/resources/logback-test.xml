@@ -3,7 +3,7 @@
 <configuration scan="true">
     <include resource="org/springframework/boot/logging/logback/base.xml"/>
 
-    <logger name="de.stytex.foobar" level="DEBUG"/>
+    <logger name="com.mycompany.myapp" level="DEBUG"/>
     <logger name="org.hibernate.ejb.HibernatePersistence" level="OFF"/>
     <logger name="org.apache.catalina.startup.DigesterFactory" level="OFF"/>
 

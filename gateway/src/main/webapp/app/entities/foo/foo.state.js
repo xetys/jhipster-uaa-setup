@@ -52,8 +52,41 @@
                 }],
                 entity: ['$stateParams', 'Foo', function($stateParams, Foo) {
                     return Foo.get({id : $stateParams.id}).$promise;
+                }],
+                previousState: ["$state", function ($state) {
+                    var currentStateData = {
+                        name: $state.current.name || 'foo',
+                        params: $state.params,
+                        url: $state.href($state.current.name, $state.params)
+                    };
+                    return currentStateData;
                 }]
             }
+        })
+        .state('foo-detail.edit', {
+            parent: 'foo-detail',
+            url: '/detail/edit',
+            data: {
+                authorities: ['ROLE_USER']
+            },
+            onEnter: ['$stateParams', '$state', '$uibModal', function($stateParams, $state, $uibModal) {
+                $uibModal.open({
+                    templateUrl: 'app/entities/foo/foo-dialog.html',
+                    controller: 'FooDialogController',
+                    controllerAs: 'vm',
+                    backdrop: 'static',
+                    size: 'lg',
+                    resolve: {
+                        entity: ['Foo', function(Foo) {
+                            return Foo.get({id : $stateParams.id}).$promise;
+                        }]
+                    }
+                }).result.then(function() {
+                    $state.go('^', {}, { reload: false });
+                }, function() {
+                    $state.go('^');
+                });
+            }]
         })
         .state('foo.new', {
             parent: 'foo',
@@ -77,7 +110,7 @@
                         }
                     }
                 }).result.then(function() {
-                    $state.go('foo', null, { reload: true });
+                    $state.go('foo', null, { reload: 'foo' });
                 }, function() {
                     $state.go('foo');
                 });
@@ -102,7 +135,7 @@
                         }]
                     }
                 }).result.then(function() {
-                    $state.go('foo', null, { reload: true });
+                    $state.go('foo', null, { reload: 'foo' });
                 }, function() {
                     $state.go('^');
                 });
@@ -126,7 +159,7 @@
                         }]
                     }
                 }).result.then(function() {
-                    $state.go('foo', null, { reload: true });
+                    $state.go('foo', null, { reload: 'foo' });
                 }, function() {
                     $state.go('^');
                 });

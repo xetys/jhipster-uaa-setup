@@ -1,0 +1,22 @@
+{
+    "gatewayApp": {
+        "bar" : {
+            "home": {
+                "title": "Bars",
+                "createLabel": "Create a new Bar",
+                "createOrEditLabel": "Create or edit a Bar",
+                "search": "Search for Bar"
+            },
+            "created": "A new Bar is created with identifier {{ param }}",
+            "updated": "A Bar is updated with identifier {{ param }}",
+            "deleted": "A Bar is deleted with identifier {{ param }}",
+            "delete": {
+                "question": "Are you sure you want to delete Bar {{ id }}?"
+            },
+            "detail": {
+                "title": "Bar"
+            },
+            "value": "Value"
+        }
+    }
+}

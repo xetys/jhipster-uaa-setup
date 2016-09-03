@@ -2,7 +2,7 @@ version: '2'
 services:
     gateway-cassandra:
         container_name: gateway-cassandra
-        image: cassandra:2.2.5
+        image: cassandra:2.2.7
         # volumes:
         #     - ~/volumes/jhipster/gateway/cassandra/:/var/lib/cassandra/data
         ports:
@@ -12,7 +12,7 @@ services:
             - 9042:9042
             - 9160:9160
     gateway-cassandra-node:
-        image: cassandra:2.2.5
+        image: cassandra:2.2.7
         links:
             - gateway-cassandra:seed
         environment:

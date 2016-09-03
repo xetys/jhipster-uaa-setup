@@ -7,7 +7,7 @@ ADD *.war /app.war
 
 RUN sh -c 'touch /app.war'
 VOLUME /tmp
-EXPOSE 8082
+EXPOSE 8082 5701/udp
 CMD echo "The application will start in ${JHIPSTER_SLEEP}s..." && \
     sleep ${JHIPSTER_SLEEP} && \
     java -Djava.security.egd=file:/dev/./urandom -jar /app.war

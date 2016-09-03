@@ -30,7 +30,10 @@ spring:
             enabled: true
         livereload:
             enabled: false # we use gulp + BrowserSync for livereload
+    jackson:
+        serialization.indent_output: true
     datasource:
+        type: com.zaxxer.hikari.HikariDataSource
         url: jdbc:h2:file:./target/h2db/db/gateway;DB_CLOSE_DELAY=-1
         name:
         username: gateway
@@ -39,13 +42,16 @@ spring:
         console:
             enabled: false
     jpa:
-        database-platform: de.stytex.foobar.domain.util.FixedH2Dialect
+        database-platform: com.mycompany.myapp.domain.util.FixedH2Dialect
         database: H2
-        show_sql: true
+        show-sql: true
         properties:
-            hibernate.cache.use_second_level_cache: false
+            hibernate.cache.use_second_level_cache: true
             hibernate.cache.use_query_cache: false
             hibernate.generate_statistics: true
+            hibernate.cache.region.factory_class: com.mycompany.myapp.config.hazelcast.HazelcastCacheRegionFactory
+            hibernate.cache.use_minimal_puts: true
+            hibernate.cache.hazelcast.use_lite_member: true
     data:
         cassandra:
             contactPoints: localhost
@@ -63,6 +69,8 @@ spring:
         cache-seconds: 1
     thymeleaf:
         cache: false
+    profiles:
+        include: swagger # automatically set the 'swagger' profile
 
 liquibase:
     contexts: dev
@@ -80,12 +88,10 @@ jhipster:
             enabled: false
         authorized-microservices-endpoints: # Access Control Policy, if left empty for a route, all endpoints will be accessible
             app1: /api,/v2/api-docs # recommended dev configuration
-    security:
-        authentication:
-            jwt:
-                secret: my-secret-token-to-change-in-production
-                # Token is valid 24 hours
-                tokenValidityInSeconds: 86400
+    cache: # Hibernate 2nd level cache, used by CacheConfiguration
+        timeToLiveSeconds: 3600
+        hazelcast:
+            backupCount: 1
     mail: # specific JHipster mail property, for standard properties see MailProperties
         from: gateway@localhost
     metrics: # DropWizard Metrics configuration, used by MetricsConfiguration
@@ -111,5 +117,3 @@ jhipster:
         spectator-metrics: # Reports Spectator Circuit Breaker metrics in the logs
             enabled: false
             # edit spring.metrics.export.delay-millis to set report frequency
-    swagger: # swagger is enabled. It can be disabled by pasing 'no-swagger' profile at run time as well
-        enabled: true

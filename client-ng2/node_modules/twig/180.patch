@@ -1,0 +1,36 @@
+From eb6977b87da46df2827a470f5c3666aaf6a4eb9a Mon Sep 17 00:00:00 2001
+From: Robert Anderson <robert.anderson@xodigital.com.au>
+Date: Thu, 2 Oct 2014 11:41:40 +1000
+Subject: [PATCH] add tests for #179
+
+---
+ test/test.expressions.js | 16 ++++++++++++++++
+ 1 file changed, 16 insertions(+)
+
+diff --git a/test/test.expressions.js b/test/test.expressions.js
+index a23d31e..958d686 100644
+--- a/test/test.expressions.js
++++ b/test/test.expressions.js
+@@ -232,6 +232,22 @@ describe("Twig.js Expressions ->", function() {
+ 
+             output2.should.equal( "1" );
+         });
++        it("should support the extended ternary operator for true conditions", function() {
++            var test_template = twig({data: '{{ a ? b }}'})
++                , output_t = test_template.render({a: true,  b: "one"})
++                , output_f = test_template.render({a: false, b: "one"});
++
++            output_t.should.equal( "one" );
++            output_f.should.equal( "" );
++        });
++        it("should support the extended ternary operator for false conditions", function() {
++            var test_template = twig({data: '{{ a ?: b }}'})
++                , output_t = test_template.render({a: "one",  b: "two"})
++                , output_f = test_template.render({a: false, b: "two"});
++
++            output_t.should.equal( "one" );
++            output_f.should.equal( "two" );
++        });
+ 
+         it("should support in/containment functionality for arrays", function() {
+             var test_template = twig({data: '{{ "a" in ["a", "b", "c"] }}'});

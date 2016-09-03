@@ -1,19 +1,19 @@
 version: '2'
 services:
-    app2-app:
-        image: app2
+    bar-app:
+        image: bar
         external_links:
-            - app2-postgresql:postgresql
+            - bar-postgresql:postgresql
             - jhipster-registry:registry
         environment:
-            - SPRING_PROFILES_ACTIVE=prod
+            - SPRING_PROFILES_ACTIVE=prod,swagger
             - SPRING_CLOUD_CONFIG_URI=http://admin:admin@registry:8761/config
-            - SPRING_DATASOURCE_URL=jdbc:postgresql://postgresql:5432/app2
+            - SPRING_DATASOURCE_URL=jdbc:postgresql://postgresql:5432/bar
             - JHIPSTER_SLEEP=10 # gives time for the database to boot before the application
-    app2-postgresql:
+    bar-postgresql:
         extends:
             file: postgresql.yml
-            service: app2-postgresql
+            service: bar-postgresql
     jhipster-registry:
         extends:
             file: jhipster-registry.yml

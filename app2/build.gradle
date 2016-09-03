@@ -26,6 +26,8 @@ apply plugin: 'spring-boot'
 apply plugin: 'war'
 apply plugin: 'propdeps'
 apply plugin: 'io.spring.dependency-management'
+/* downgrade Hibernate to 4.3 */
+ext['hibernate.version'] = '${hibernate_entitymanager_version}'
 dependencyManagement {
   imports {
     mavenBom 'org.springframework.cloud:spring-cloud-dependencies:'+ spring_cloud_version
@@ -34,7 +36,7 @@ dependencyManagement {
 defaultTasks 'bootRun'
 
 bootRepackage {
-   mainClass = 'de.stytex.foobar.App2App'
+   mainClass = 'com.mycompany.myapp.BarApp'
 }
 
 war {
@@ -42,8 +44,9 @@ war {
 }
 
 springBoot {
-    mainClass = 'de.stytex.foobar.App2App'
+    mainClass = 'com.mycompany.myapp.BarApp'
     executable = true
+    buildInfo()
 }
 
 bootRun {
@@ -81,7 +84,7 @@ if (project.hasProperty('prod')) {
     apply from: 'gradle/profile_dev.gradle'
 }
 
-group = 'de.stytex.foobar'
+group = 'com.mycompany.myapp'
 version = '0.0.1-SNAPSHOT'
 
 description = ''
@@ -128,6 +131,9 @@ dependencies {
         exclude(module: 'metrics-core')
         exclude(module: 'metrics-healthchecks')
     } 
+    compile "com.hazelcast:hazelcast:${hazelcast_version}"
+    compile "com.hazelcast:hazelcast-hibernate4:${hazelcast_version}"
+    compile "com.hazelcast:hazelcast-spring:${hazelcast_version}"
     compile "org.hibernate:hibernate-core:${hibernate_entitymanager_version}"
     compile("com.zaxxer:HikariCP:${HikariCP_version}") {
         exclude(module: 'tools')
@@ -173,11 +179,9 @@ dependencies {
     compile "org.springframework.security:spring-security-web:${spring_security_version}"
     compile group: 'org.springframework.security.oauth', name: 'spring-security-oauth2'
     compile group: 'org.springframework.security', name: 'spring-security-jwt'
-
     compile("io.springfox:springfox-swagger2:${springfox_version}"){
         exclude module: 'mapstruct'
     }
-    
     compile "org.postgresql:postgresql"
     compile "com.h2database:h2"
     compile "fr.ippon.spark.metrics:metrics-spark-reporter:${metrics_spark_reporter_version}"
@@ -185,6 +189,8 @@ dependencies {
     testCompile "com.jayway.awaitility:awaitility:${awaility_version}"
     testCompile "com.jayway.jsonpath:json-path"
     testCompile "org.springframework.boot:spring-boot-starter-test"
+    testCompile "org.springframework.security:spring-security-test"
+    testCompile "org.springframework.boot:spring-boot-test"
     testCompile "org.assertj:assertj-core:${assertj_core_version}"
     testCompile "junit:junit"
     testCompile "org.mockito:mockito-core"
@@ -205,11 +211,12 @@ task cleanResources(type: Delete) {
 }
 
 task wrapper(type: Wrapper) {
-    gradleVersion = '2.14'
+    gradleVersion = '2.14.1'
 }
 
 task stage(dependsOn: 'bootRepackage') {
 }
 
 compileJava.dependsOn processResources
-processResources.dependsOn cleanResources
+processResources.dependsOn cleanResources,bootBuildInfo
+bootBuildInfo.mustRunAfter cleanResources

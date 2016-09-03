@@ -9,12 +9,9 @@ dependencies {
     compile "org.springframework.boot:spring-boot-starter-tomcat:${spring_boot_version}"
 }
 
-def profiles = 'dev'
+def profiles = 'dev,uaa'
 if (project.hasProperty('no-liquibase')) {
     profiles += ',no-liquibase'
-}
-if (project.hasProperty('no-swagger')) {
-    profiles += ',no-swagger'
 }
 
 bootRun {

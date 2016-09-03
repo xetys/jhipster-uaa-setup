@@ -1,0 +1,12 @@
+version: '2'
+services:
+    gateway-postgresql:
+        container_name: gateway-postgresql
+        image: postgres:9.5.2
+        # volumes:
+        #     - ~/volumes/jhipster/gateway/postgresql/:/var/lib/postgresql/
+        environment:
+            - POSTGRES_USER=gateway
+            - POSTGRES_PASSWORD=
+        ports:
+            - 5432:5432

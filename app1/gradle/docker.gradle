@@ -14,8 +14,8 @@ task buildDocker(type: Exec) {
         }
     }
     if (Os.isFamily(Os.FAMILY_WINDOWS)) {
-        commandLine 'cmd', '/c', 'docker', 'build', '-f', 'build/docker/Dockerfile', '-t', 'app1', 'build/docker/'
+        commandLine 'cmd', '/c', 'docker', 'build', '-f', 'build/docker/Dockerfile', '-t', 'foo', 'build/docker/'
     } else {
-        commandLine 'docker', 'build', '-f', 'build/docker/Dockerfile', '-t', 'app1', 'build/docker/'
+        commandLine 'docker', 'build', '-f', 'build/docker/Dockerfile', '-t', 'foo', 'build/docker/'
     }
 }
