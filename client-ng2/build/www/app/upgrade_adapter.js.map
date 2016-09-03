@@ -1,1 +1,0 @@
-{"version":3,"sources":["upgrade_adapter.ts"],"names":[],"mappings":";;;;QAEa,cAAc;;;;;;;YAAd,4BAAA,cAAc,GAAG,IAAI,wBAAc,EAAE,CAAA,CAAC","file":"upgrade_adapter.js","sourcesContent":["import { UpgradeAdapter } from \"@angular/upgrade\";\n\nexport const upgradeAdapter = new UpgradeAdapter();\n"],"sourceRoot":"/source/"}

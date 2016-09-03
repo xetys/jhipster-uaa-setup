@@ -1,4 +1,0 @@
-env:
-  node: true
-  jasmine: true
-extend: ./.eslintrc
