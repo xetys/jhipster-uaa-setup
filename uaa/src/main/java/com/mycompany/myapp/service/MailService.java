@@ -3,7 +3,7 @@ package com.mycompany.myapp.service;
 import com.mycompany.myapp.config.JHipsterProperties;
 import com.mycompany.myapp.domain.User;
 
-import org.apache.commons.lang.CharEncoding;
+import org.apache.commons.lang3.CharEncoding;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.MessageSource;

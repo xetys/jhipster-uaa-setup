@@ -1,4 +1,4 @@
-    version: '2'
+version: '2'
 services:
     foo-app:
         image: foo
@@ -18,3 +18,5 @@ services:
         extends:
             file: jhipster-registry.yml
             service: jhipster-registry
+        environment:
+            - SPRING_CLOUD_CONFIG_SERVER_NATIVE_SEARCH_LOCATIONS=file:./central-config/docker-config/

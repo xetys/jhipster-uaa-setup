@@ -16,7 +16,7 @@ To optimize the uaa client for production, run:
 To ensure everything worked, run:
 
     java -jar build/libs/*.war
-
+    
 ## Continuous Integration
 
 To setup this project in Jenkins, use the following configuration:
@@ -34,3 +34,4 @@ To setup this project in Jenkins, use the following configuration:
     * Publish JUnit test result report / Test Report XMLs: `build/test-results/*.xml`
 
 [JHipster]: https://jhipster.github.io/
+[Gatling]: http://gatling.io/

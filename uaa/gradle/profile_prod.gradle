@@ -6,10 +6,10 @@ ext {
 }
 
 dependencies {
-    compile "org.springframework.boot:spring-boot-starter-tomcat:${spring_boot_version}"
+
 }
 
-def profiles = 'prod,uaa'
+def profiles = 'prod'
 if (project.hasProperty('no-liquibase')) {
     profiles += ',no-liquibase'
 }

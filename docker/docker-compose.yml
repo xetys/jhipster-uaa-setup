@@ -10,6 +10,9 @@ services:
             - SPRING_CLOUD_CONFIG_URI=http://admin:admin@registry:8761/config
             - SPRING_DATASOURCE_URL=jdbc:postgresql://postgresql:5432/uaa
             - JHIPSTER_SLEEP=10 # gives time for the database to boot before the application
+        depends_on:
+            - jhipster-registry
+            - uaa-postgresql
     uaa-postgresql:
         container_name: uaa-postgresql
         extends:
@@ -28,6 +31,9 @@ services:
             - SPRING_CLOUD_CONFIG_URI=http://admin:admin@registry:8761/config
             - SPRING_DATASOURCE_URL=jdbc:postgresql://postgresql:5432/foo
             - JHIPSTER_SLEEP=10 # gives time for the database to boot before the application
+        depends_on:
+            - jhipster-registry
+            - foo-postgresql
     foo-postgresql:
         container_name: foo-postgresql
         extends:
@@ -46,6 +52,9 @@ services:
             - SPRING_CLOUD_CONFIG_URI=http://admin:admin@registry:8761/config
             - SPRING_DATASOURCE_URL=jdbc:postgresql://postgresql:5432/bar
             - JHIPSTER_SLEEP=10 # gives time for the database to boot before the application
+        depends_on:
+            - jhipster-registry
+            - bar-postgresql
     bar-postgresql:
         container_name: bar-postgresql
         extends:
@@ -66,6 +75,9 @@ services:
             - JHIPSTER_SLEEP=10 # gives time for the database to boot before the application
         ports:
             - 8080:8080
+        depends_on:
+            - jhipster-registry
+            - gateway-postgresql
     gateway-postgresql:
         container_name: gateway-postgresql
         extends:

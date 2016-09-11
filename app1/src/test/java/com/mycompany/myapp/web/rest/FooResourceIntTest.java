@@ -1,6 +1,7 @@
 package com.mycompany.myapp.web.rest;
 
 import com.mycompany.myapp.FooApp;
+
 import com.mycompany.myapp.config.SecurityBeanOverrideConfiguration;
 
 import com.mycompany.myapp.domain.Foo;
@@ -36,7 +37,9 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
  * @see FooResource
  */
 @RunWith(SpringRunner.class)
+
 @SpringBootTest(classes = {FooApp.class, SecurityBeanOverrideConfiguration.class})
+
 public class FooResourceIntTest {
     private static final String DEFAULT_VALUE = "AAAAA";
     private static final String UPDATED_VALUE = "BBBBB";

@@ -1,6 +1,9 @@
 package com.mycompany.myapp.web.rest;
 
 import com.mycompany.myapp.BarApp;
+
+import com.mycompany.myapp.config.SecurityBeanOverrideConfiguration;
+
 import com.mycompany.myapp.domain.Bar;
 import com.mycompany.myapp.repository.BarRepository;
 
@@ -34,7 +37,9 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
  * @see BarResource
  */
 @RunWith(SpringRunner.class)
-@SpringBootTest(classes = BarApp.class)
+
+@SpringBootTest(classes = {BarApp.class, SecurityBeanOverrideConfiguration.class})
+
 public class BarResourceIntTest {
     private static final String DEFAULT_VALUE = "AAAAA";
     private static final String UPDATED_VALUE = "BBBBB";
