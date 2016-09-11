@@ -73,7 +73,6 @@ public class BarResourceIntTest {
      */
     public static Bar createEntity(EntityManager em) {
         Bar bar = new Bar();
-        bar = new Bar();
         bar.setValue(DEFAULT_VALUE);
         return bar;
     }

@@ -1,0 +1,10 @@
+version: '2'
+services:
+    postgresql:
+        container_name: postgresql
+        image: postgres:9.5.3
+        # volumes:
+        #     - ~/volumes/jhipster/uaa/postgresql/:/var/lib/postgresql/
+        environment:
+            - POSTGRES_USER=postgres
+            - POSTGRES_PASSWORD=

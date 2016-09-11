@@ -1,6 +1,8 @@
 package com.mycompany.myapp.web.rest;
 
 import com.mycompany.myapp.FooApp;
+import com.mycompany.myapp.config.SecurityBeanOverrideConfiguration;
+
 import com.mycompany.myapp.domain.Foo;
 import com.mycompany.myapp.repository.FooRepository;
 
@@ -13,7 +15,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.data.web.PageableHandlerMethodArgumentResolver;
-import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.util.ReflectionTestUtils;
 import org.springframework.test.web.servlet.MockMvc;
@@ -35,7 +36,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
  * @see FooResource
  */
 @RunWith(SpringRunner.class)
-@SpringBootTest(classes = FooApp.class)
+@SpringBootTest(classes = {FooApp.class, SecurityBeanOverrideConfiguration.class})
 public class FooResourceIntTest {
     private static final String DEFAULT_VALUE = "AAAAA";
     private static final String UPDATED_VALUE = "BBBBB";
@@ -74,7 +75,6 @@ public class FooResourceIntTest {
      */
     public static Foo createEntity(EntityManager em) {
         Foo foo = new Foo();
-        foo = new Foo();
         foo.setValue(DEFAULT_VALUE);
         return foo;
     }

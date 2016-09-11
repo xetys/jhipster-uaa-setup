@@ -4,12 +4,10 @@ package com.mycompany.myapp.config;
 
 import com.mycompany.myapp.security.AuthoritiesConstants;
 
-
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.cloud.client.loadbalancer.RestTemplateCustomizer;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Profile;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
@@ -23,11 +21,9 @@ import org.springframework.security.oauth2.provider.token.store.JwtAccessTokenCo
 import org.springframework.security.oauth2.provider.token.store.JwtTokenStore;
 import org.springframework.web.client.RestTemplate;
 
-
 import java.util.Map;
 
 import javax.inject.Inject;
-import java.io.IOException;
 
 @Configuration
 @EnableResourceServer
@@ -50,20 +46,18 @@ public class MicroserviceSecurityConfiguration extends ResourceServerConfigurerA
             .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
         .and()
             .authorizeRequests()
+            .antMatchers("/api/profile-info").permitAll()
             .antMatchers("/api/**").authenticated()
             .antMatchers("/management/**").hasAuthority(AuthoritiesConstants.ADMIN)
-            .antMatchers("/configuration/ui").permitAll();
-
+            .antMatchers("/swagger-resources/configuration/ui").permitAll();
     }
 
     @Bean
-    @Profile("uaa")
     public TokenStore tokenStore() {
         return new JwtTokenStore(jwtAccessTokenConverter());
     }
 
     @Bean
-    @Profile("uaa")
     public JwtAccessTokenConverter jwtAccessTokenConverter() {
         JwtAccessTokenConverter converter = new JwtAccessTokenConverter();
         converter.setVerifierKey(getKeyFromAuthorizationServer());
@@ -71,7 +65,6 @@ public class MicroserviceSecurityConfiguration extends ResourceServerConfigurerA
     }
 
     @Bean
-    @Profile("uaa")
     public RestTemplate loadBalancedRestTemplate(RestTemplateCustomizer customizer) {
         RestTemplate restTemplate = new RestTemplate();
         customizer.customize(restTemplate);
@@ -85,9 +78,8 @@ public class MicroserviceSecurityConfiguration extends ResourceServerConfigurerA
     private String getKeyFromAuthorizationServer() {
         HttpEntity<Void> request = new HttpEntity<Void>(new HttpHeaders());
         return (String) this.keyUriRestTemplate
-                .exchange("http://uaa/oauth/token_key", HttpMethod.GET, request, Map.class).getBody()
-                .get("value");
+            .exchange("http://uaa/oauth/token_key", HttpMethod.GET, request, Map.class).getBody()
+            .get("value");
+
     }
 }
-
-

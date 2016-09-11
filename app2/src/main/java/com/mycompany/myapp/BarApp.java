@@ -2,7 +2,6 @@ package com.mycompany.myapp;
 
 import com.mycompany.myapp.config.Constants;
 import com.mycompany.myapp.config.DefaultProfileUtil;
-import com.mycompany.myapp.config.ExcludedFromComponentScan;
 import com.mycompany.myapp.config.JHipsterProperties;
 
 import org.slf4j.Logger;
@@ -14,7 +13,6 @@ import org.springframework.boot.autoconfigure.liquibase.LiquibaseProperties;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
 import org.springframework.context.annotation.ComponentScan;
-import org.springframework.context.annotation.FilterType;
 import org.springframework.core.env.Environment;
 
 import javax.annotation.PostConstruct;
@@ -24,9 +22,7 @@ import java.net.UnknownHostException;
 import java.util.Arrays;
 import java.util.Collection;
 
-@ComponentScan(
-    excludeFilters = @ComponentScan.Filter(type = FilterType.ANNOTATION, classes = ExcludedFromComponentScan.class)
-)
+@ComponentScan
 @EnableAutoConfiguration(exclude = { MetricFilterAutoConfiguration.class, MetricRepositoryAutoConfiguration.class })
 @EnableConfigurationProperties({ JHipsterProperties.class, LiquibaseProperties.class })
 @EnableEurekaClient
@@ -82,5 +78,4 @@ public class BarApp {
         "Config Server: \t{}\n----------------------------------------------------------",
             configServerStatus == null ? "Not found or not setup for this application" : configServerStatus);
     }
-
 }
