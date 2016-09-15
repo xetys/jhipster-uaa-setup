@@ -10,7 +10,7 @@ import java.util.List;
  *
  * @author David Steiman
  */
-@Component
+//@Component
 public class TestBarClient implements BarClient {
     public List<Bar> getBars() {
         return Arrays.asList(new Bar("one"), new Bar("two"), new Bar("three"));

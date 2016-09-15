@@ -1,11 +1,14 @@
-# JHipster 3.0 Demo: A microservice application secured with OAuth2
-This application is a fully JHipster generated demo for my PR to JHipster, demonstrating the usage of JHipster uaa
+# JHipster 3.7 Demo: A microservice application secured with OAuth2
+This application is a fully JHipster generated demo, demonstrating the usage of JHipster UAA
 
 
 # Few words about JHipster UAA
+
 An UAA is defined as User Account and Authentcation service, and manages user accounts, user authentication and authorization.
 Instead of share JHipster UAA as an prebuilt application as JHipster Registry or JHipster Console, this UAA is generated as an
 JHipster application, with options to implement the user account API with all existing features wrapped up in JHipster.
+
+You can find further information in the [official JHipster UAA documentation][] and [in my tutorial blog article][]
 
 # What is in the box?
 
@@ -15,18 +18,20 @@ JHipster application, with options to implement the user account API with all ex
 * a docker directory, storing docker-compose information to start the application using all apps
 
 # How to run?
-Inside the sub-directories "app1", "app2", "gateway" and "uaa" peform this commands:
+
+To start of quickly, first use the build script in root:
 
 ``` sh
-$ ./gradlew -x test build -Pprod buildDocker
+$ ./build-all.sh
 ```
 
-Inside the docker sub-directory "docker", this:
+and then just start the whole setup using:
+
 
 ``` sh
+$ cd docker/
 $ docker-compose up -d
 ```
-
 # How this project was created?
 
 This project was generated with the following commands:
@@ -165,3 +170,7 @@ Found Docker images, writing files...
 
 $ docker-compose up -d
 ```
+
+
+[official JHipster UAA documentation]: https://jhipster.github.io/using-uaa/
+[in my tutorial blog article]: http://stytex.de/blog/2016/09/15/jhipster-3-dot-7-secure-service-communication/
