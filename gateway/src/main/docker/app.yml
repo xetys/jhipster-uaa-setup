@@ -1,3 +1,8 @@
+#-------------------------------------------------------------------------------
+# Note for using the rate-limiting:
+#   The comment part won't be copied if you use the subgenerator docker-compose
+#   you have to manually copy it
+#-------------------------------------------------------------------------------
 version: '2'
 services:
     gateway-app:
@@ -19,11 +24,20 @@ services:
         extends:
             file: postgresql.yml
             service: gateway-postgresql
-        # Uncomment to have Cassandra working with the gateway
-        # extends:
-        #     file: cassandra-cluster.yml
-        #     service: gateway-cassandra
+    # Uncomment to have Cassandra working with the gateway
+    # gateway-cassandra:
+    #     extends:
+    #         file: cassandra-cluster.yml
+    #         service: gateway-cassandra
+    # gateway-cassandra-migration:
+    #     extends:
+    #         file: cassandra-migration.yml
+    #         service: gateway-cassandra-migration
+    #     environment:
+    #         - CREATE_KEYSPACE_SCRIPT=create-keyspace-prod.cql
     jhipster-registry:
         extends:
             file: jhipster-registry.yml
             service: jhipster-registry
+        environment:
+            - SPRING_CLOUD_CONFIG_SERVER_NATIVE_SEARCH_LOCATIONS=file:./central-config/docker-config/

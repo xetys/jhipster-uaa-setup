@@ -135,6 +135,7 @@ public class JHipsterProperties {
         public void setTimeToLiveSeconds(int timeToLiveSeconds) {
             this.timeToLiveSeconds = timeToLiveSeconds;
         }
+
         public Hazelcast getHazelcast() {
             return hazelcast;
         }
@@ -168,10 +169,7 @@ public class JHipsterProperties {
 
     public static class Security {
 
-
         private final LoadBalancedResourceDetails clientAuthorization = new LoadBalancedResourceDetails();
-
-
 
         private final Authentication authentication = new Authentication();
 
@@ -182,8 +180,6 @@ public class JHipsterProperties {
         public LoadBalancedResourceDetails getClientAuthorization() {
             return clientAuthorization;
         }
-
-
 
         public static class Authentication {
 
@@ -198,6 +194,7 @@ public class JHipsterProperties {
                 private String secret;
 
                 private long tokenValidityInSeconds = 1800;
+
                 private long tokenValidityInSecondsForRememberMe = 2592000;
 
                 public String getSecret() {
@@ -225,7 +222,6 @@ public class JHipsterProperties {
                 }
             }
         }
-
     }
 
     public static class Swagger {
@@ -496,9 +492,7 @@ public class JHipsterProperties {
 
             public void setQueueSize(int queueSize) { this.queueSize = queueSize; }
         }
-
     }
-
 
     public static class Ribbon {
 

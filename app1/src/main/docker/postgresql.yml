@@ -2,7 +2,7 @@ version: '2'
 services:
     foo-postgresql:
         container_name: foo-postgresql
-        image: postgres:9.5.3
+        image: postgres:9.5.4
         # volumes:
         #     - ~/volumes/jhipster/foo/postgresql/:/var/lib/postgresql/
         environment:

@@ -76,6 +76,9 @@ jhipster:
                 secret: 
                 # Token is valid 24 hours
                 tokenValidityInSeconds: 86400
+        client-authorization:
+            clientId: internal
+            clientSecret: internal
     metrics: # DropWizard Metrics configuration, used by MetricsConfiguration
         jmx.enabled: true
     swagger:

@@ -1,7 +1,5 @@
 package com.mycompany.myapp.config;
 
-
-
 import com.mycompany.myapp.security.AuthoritiesConstants;
 
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -83,6 +81,3 @@ public class MicroserviceSecurityConfiguration extends ResourceServerConfigurerA
 
     }
 }
-
-
-

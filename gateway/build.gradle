@@ -42,12 +42,13 @@ bootRepackage {
 }
 
 war {
-    rootSpec.exclude("**/tomcat-*.jar")
+
 }
 
 springBoot {
     mainClass = 'com.mycompany.myapp.GatewayApp'
     executable = true
+    buildInfo()
 }
 
 bootRun {
@@ -93,6 +94,7 @@ description = ''
 
 configurations {
     providedRuntime
+    compile.exclude module: "spring-boot-starter-tomcat"
     // netty's native is pulled by spring-cloud-starter-ribbon, but is useless unless you explicitly add the native binary dependency.
     // Having it in the classpath without the binary can cause warnings
     all*.exclude group: 'io.netty', module: 'netty-transport-native-epoll'
@@ -141,7 +143,7 @@ dependencies {
         exclude(module: 'tools')
     }
     compile "commons-codec:commons-codec:${commons_codec_version}"
-    compile "commons-lang:commons-lang:${commons_lang_version}"
+    compile "org.apache.commons:commons-lang3:${commons_lang_version}"
     compile "commons-io:commons-io:${commons_io_version}"
     compile "javax.inject:javax.inject:${javax_inject_version}"
     compile "javax.transaction:javax.transaction-api"
@@ -161,9 +163,12 @@ dependencies {
     compile "org.springframework.boot:spring-boot-starter-aop"
     compile "org.springframework.boot:spring-boot-starter-data-jpa"
     compile "org.springframework.boot:spring-boot-starter-security"
-    compile "org.springframework.boot:spring-boot-starter-web"
+    compile ("org.springframework.boot:spring-boot-starter-web") {
+        exclude module: 'spring-boot-starter-tomcat'
+    }
+    compile "org.springframework.boot:spring-boot-starter-undertow"
     compile "org.springframework.boot:spring-boot-starter-thymeleaf"
-    compile("com.datastax.cassandra:cassandra-driver-core:${datastax_driver_version}") {
+    compile ("com.datastax.cassandra:cassandra-driver-core:${datastax_driver_version}") {
         exclude module: 'com.codahale.metrics'
     }
     compile "com.datastax.cassandra:cassandra-driver-extras:${datastax_driver_version}"
@@ -176,6 +181,8 @@ dependencies {
     compile "org.springframework.cloud:spring-cloud-starter-spectator"
     compile "org.springframework.cloud:spring-cloud-starter-config"
     compile "org.springframework.retry:spring-retry"
+    compile "org.springframework.cloud:spring-cloud-security"
+    compile "org.springframework.cloud:spring-cloud-starter-feign"
     compile "org.springframework.cloud:spring-cloud-cloudfoundry-connector"
     compile "org.springframework.cloud:spring-cloud-spring-service-connector"
     compile "org.springframework.cloud:spring-cloud-localconfig-connector"
@@ -187,11 +194,9 @@ dependencies {
     compile "org.springframework.security:spring-security-web:${spring_security_version}"
     compile group: 'org.springframework.security.oauth', name: 'spring-security-oauth2'
     compile group: 'org.springframework.security', name: 'spring-security-jwt'
-
     compile("io.springfox:springfox-swagger2:${springfox_version}"){
         exclude module: 'mapstruct'
     }
-    
     compile "org.postgresql:postgresql"
     compile "com.h2database:h2"
     compile "fr.ippon.spark.metrics:metrics-spark-reporter:${metrics_spark_reporter_version}"
@@ -199,6 +204,7 @@ dependencies {
     testCompile "com.jayway.awaitility:awaitility:${awaility_version}"
     testCompile "com.jayway.jsonpath:json-path"
     testCompile "org.springframework.boot:spring-boot-starter-test"
+    testCompile "org.springframework.security:spring-security-test"
     testCompile "org.springframework.boot:spring-boot-test"
     testCompile "org.assertj:assertj-core:${assertj_core_version}"
     testCompile "junit:junit"
@@ -220,11 +226,12 @@ task cleanResources(type: Delete) {
 }
 
 task wrapper(type: Wrapper) {
-    gradleVersion = '2.14.1'
+    gradleVersion = '3.0'
 }
 
 task stage(dependsOn: 'bootRepackage') {
 }
 
 compileJava.dependsOn processResources
-processResources.dependsOn cleanResources
+processResources.dependsOn cleanResources,bootBuildInfo
+bootBuildInfo.mustRunAfter cleanResources

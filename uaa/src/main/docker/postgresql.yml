@@ -2,7 +2,7 @@ version: '2'
 services:
     uaa-postgresql:
         container_name: uaa-postgresql
-        image: postgres:9.5.3
+        image: postgres:9.5.4
         # volumes:
         #     - ~/volumes/jhipster/uaa/postgresql/:/var/lib/postgresql/
         environment:

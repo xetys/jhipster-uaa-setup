@@ -1,5 +1,6 @@
 package com.mycompany.myapp;
 
+import com.mycompany.myapp.client.OAuth2InterceptedFeignConfiguration;
 import com.mycompany.myapp.config.Constants;
 import com.mycompany.myapp.config.DefaultProfileUtil;
 import com.mycompany.myapp.config.JHipsterProperties;
@@ -13,6 +14,7 @@ import org.springframework.boot.autoconfigure.liquibase.LiquibaseProperties;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
 import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.FilterType;
 import org.springframework.core.env.Environment;
 
 import javax.annotation.PostConstruct;
@@ -22,7 +24,9 @@ import java.net.UnknownHostException;
 import java.util.Arrays;
 import java.util.Collection;
 
-@ComponentScan
+@ComponentScan(
+    excludeFilters = @ComponentScan.Filter(type = FilterType.ASSIGNABLE_TYPE, classes = OAuth2InterceptedFeignConfiguration.class)
+)
 @EnableAutoConfiguration(exclude = { MetricFilterAutoConfiguration.class, MetricRepositoryAutoConfiguration.class })
 @EnableConfigurationProperties({ JHipsterProperties.class, LiquibaseProperties.class })
 @EnableEurekaClient
