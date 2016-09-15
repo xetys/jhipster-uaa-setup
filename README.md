@@ -32,6 +32,39 @@ and then just start the whole setup using:
 $ cd docker/
 $ docker-compose up -d
 ```
+
+# How to test
+
+You can use `./gradlew test` to test the applications the usual way. For a test using curl or some other HTTP client, you first
+
+```
+$ curl -XPOST -d "grant_type=password" -d "username=admin" -d "password=admin" "web_app:@localhost:8080/uaa/oauth/token"
+{"access_token":"eyJ...L2A","expires_in":43199,"scope":"openid","jti":"86f84e4b-e242-43d0-ab30-a759dcc03f19"}
+```
+
+to retrieve authorized "bars":
+
+```
+$ curl -H "Authorization: Bearer eyJ...L2A" "localhost:8080/bar/api/bars"
+[]
+```
+
+you can also login as just an internal service using:
+
+```
+$ curl -XPOST -d "grant_type=client_credentials" "internal:internal@localhost:8080/uaa/oauth/token"
+{"access_token":"eyJh...FmrQ","token_type":"bearer","expires_in":43199,"scope":"web-app","jti":"7229e92f-824e-4940-9727-48d9df31eeed"}
+```
+
+and perform a similar request to the `SomeController` endpoint from app1:
+
+```
+$ curl -H "Authorization: Bearer eyJh...FmrQ" "localhost:8080/foo/api/client/bar"
+[]
+```
+
+**note**: it sometimes happens, that the first request fails with code 500 and some Zuul error. Just repeat the operation, then this should work.
+
 # How this project was created?
 
 This project was generated with the following commands:
