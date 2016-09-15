@@ -46,7 +46,7 @@ $ yo jhipster
 ? (4/16) Which *type* of database would you like to use? SQL (H2, MySQL, PostgreSQL, Oracle)
 ? (5/16) Which *production* database would you like to use? PostgreSQL
 ? (6/16) Which *development* database would you like to use? H2 with disk-based persistence
-? (7/16) Do you want to use Hibernate 2nd level cache? No
+? (7/16) Do you want to use Hibernate 2nd level cache? Hazelcast
 ? (8/16) Do you want to use a search engine in your application? No
 ? (9/16) Would you like to use Maven or Gradle for building the backend? Gradle
 ? (10/16) Would you like to enable internationalization support? Yes
@@ -65,7 +65,7 @@ $ yo jhipster
 ? (5/16) Which *type* of database would you like to use? SQL (H2, MySQL, PostgreSQL, Oracle)
 ? (6/16) Which *production* database would you like to use? PostgreSQL
 ? (7/16) Which *development* database would you like to use? H2 with disk-based persistence
-? (8/16) Do you want to use Hibernate 2nd level cache? No
+? (8/16) Do you want to use Hibernate 2nd level cache? Hazelcast
 ? (9/16) Do you want to use a search engine in your application? No
 ? (10/16) Would you like to use Maven or Gradle for building the backend? Gradle
 ? (11/16) Would you like to enable internationalization support? Yes
@@ -97,7 +97,7 @@ $ yo jhipster
 ? (5/16) Which *type* of database would you like to use? SQL (H2, MySQL, PostgreSQL, Oracle)
 ? (6/16) Which *production* database would you like to use? PostgreSQL
 ? (7/16) Which *development* database would you like to use? H2 with disk-based persistence
-? (8/16) Do you want to use Hibernate 2nd level cache? No
+? (8/16) Do you want to use Hibernate 2nd level cache? Hazelcast
 ? (9/16) Do you want to use a search engine in your application? No
 ? (10/16) Would you like to use Maven or Gradle for building the backend? Gradle
 ? (11/16) Would you like to enable internationalization support? Yes
@@ -117,7 +117,7 @@ $ yo jhipster
 ? (5/16) Which *type* of database would you like to use? SQL (H2, MySQL, PostgreSQL, Oracle)
 ? (6/16) Which *production* database would you like to use? PostgreSQL
 ? (7/16) Which *development* database would you like to use? H2 with disk-based persistence
-? (8/16) Do you want to use Hibernate 2nd level cache? No
+? (8/16) Do you want to use Hibernate 2nd level cache? Hazelcast
 ? (9/16) Do you want to use a search engine in your application? No
 ? (10/16) Do you want to use clustered HTTP sessions? No
 ? (11/16) Do you want to use WebSockets? No
@@ -151,24 +151,7 @@ Found the .jhipster/Bar.json configuration file, entity can be automatically gen
 ? Do you want to update the entity? This will replace the existing files for this entity, all your custom code will be overwritten Yes, re generate the entity
 [...]
 
-$ cd ../docker
-$ yo jhipster:docker-compose
-Welcome to the JHipster Docker Compose Sub-Generator
-? Enter the root directory where your gateway(s) and microservices are located ../
-? Which applications do you want to include in your Docker Compose configuration? app1, app2, gateway, uaa
-? Do you want ELK to monitor your applications ? Yes
 
-Checking Docker images in applications directories...
-Found Docker images, writing files...
-
-   create docker-compose.yml
-   create jhipster-registry.yml
-   create central-server-config/application.yml
-   create elk.yml
-   create log-monitoring/log-config/logstash.conf
-   create log-monitoring/log-data/.gitignore
-
-$ docker-compose up -d
 ```
 
 
