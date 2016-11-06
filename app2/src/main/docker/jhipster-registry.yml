@@ -2,7 +2,7 @@ version: '2'
 services:
     jhipster-registry:
         container_name: jhipster-registry
-        image: jhipster/jhipster-registry:v2.5.0
+        image: jhipster/jhipster-registry:v2.5.2
         volumes:
             - ./central-server-config:/central-config
         # When run with the "dev" Spring profile, the JHipster Registry will

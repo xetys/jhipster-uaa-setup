@@ -23,6 +23,9 @@ eureka:
             defaultZone: http://admin:admin@localhost:8761/eureka/
 
 spring:
+    profiles:
+        active: dev
+        include: swagger
     devtools:
         restart:
             enabled: true
@@ -72,8 +75,8 @@ server:
 
 jhipster:
     cache: # Hibernate 2nd level cache, used by CacheConfiguration
-        timeToLiveSeconds: 3600
         hazelcast:
+            timeToLiveSeconds: 3600
             backupCount: 1
     security:
         client-authorization:

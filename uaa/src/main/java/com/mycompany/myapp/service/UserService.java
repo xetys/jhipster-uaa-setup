@@ -145,8 +145,8 @@ public class UserService {
     public void updateUser(Long id, String login, String firstName, String lastName, String email,
         boolean activated, String langKey, Set<String> authorities) {
 
-        userRepository
-            .findOneById(id)
+        Optional.of(userRepository
+            .findOne(id))
             .ifPresent(u -> {
                 u.setLogin(login);
                 u.setFirstName(firstName);
@@ -196,9 +196,13 @@ public class UserService {
 
     @Transactional(readOnly = true)
     public User getUserWithAuthorities() {
-        User user = userRepository.findOneByLogin(SecurityUtils.getCurrentUserLogin()).get();
-        user.getAuthorities().size(); // eagerly load the association
-        return user;
+        Optional<User> optionalUser = userRepository.findOneByLogin(SecurityUtils.getCurrentUserLogin());
+        User user = null;
+        if (optionalUser.isPresent()) {
+          user = optionalUser.get();
+            user.getAuthorities().size(); // eagerly load the association
+         }
+         return user;
     }
 
 

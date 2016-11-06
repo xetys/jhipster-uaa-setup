@@ -1,6 +1,6 @@
 {
   "generator-jhipster": {
-    "jhipsterVersion": "3.7.0",
+    "jhipsterVersion": "3.9.1",
     "baseName": "uaa",
     "packageName": "com.mycompany.myapp",
     "packageFolder": "com/mycompany/myapp",
@@ -10,7 +10,7 @@
     "databaseType": "sql",
     "devDatabaseType": "h2Disk",
     "prodDatabaseType": "postgresql",
-    "searchEngine": "no",
+    "searchEngine": false,
     "buildTool": "gradle",
     "enableTranslation": true,
     "applicationType": "uaa",
@@ -21,8 +21,10 @@
     "languages": [
       "en"
     ],
-    "clusteredHttpSession": "no",
-    "websocket": "no",
-    "enableSocialSignIn": false
+    "clusteredHttpSession": false,
+    "websocket": false,
+    "enableSocialSignIn": false,
+    "messageBroker": false,
+    "serviceDiscoveryType": "eureka"
   }
 }

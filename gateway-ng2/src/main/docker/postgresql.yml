@@ -1,0 +1,12 @@
+version: '2'
+services:
+    angular2uaagateway-postgresql:
+        container_name: angular2uaagateway-postgresql
+        image: postgres:9.5.4
+        # volumes:
+        #     - ~/volumes/jhipster/Angular2UaaGateway/postgresql/:/var/lib/postgresql/
+        environment:
+            - POSTGRES_USER=Angular2UaaGateway
+            - POSTGRES_PASSWORD=
+        ports:
+            - 5432:5432

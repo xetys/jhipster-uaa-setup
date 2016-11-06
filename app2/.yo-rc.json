@@ -1,6 +1,6 @@
 {
   "generator-jhipster": {
-    "jhipsterVersion": "3.7.0",
+    "jhipsterVersion": "3.9.1",
     "baseName": "bar",
     "packageName": "com.mycompany.myapp",
     "packageFolder": "com/mycompany/myapp",
@@ -11,7 +11,7 @@
     "databaseType": "sql",
     "devDatabaseType": "h2Disk",
     "prodDatabaseType": "postgresql",
-    "searchEngine": "no",
+    "searchEngine": false,
     "buildTool": "gradle",
     "jwtSecretKey": "34d123c489f167ce5df1481f169b1329f8827a4c",
     "enableTranslation": true,
@@ -24,8 +24,10 @@
     "languages": [
       "en"
     ],
-    "clusteredHttpSession": "no",
-    "websocket": "no",
-    "enableSocialSignIn": false
+    "clusteredHttpSession": false,
+    "websocket": false,
+    "enableSocialSignIn": false,
+    "messageBroker": false,
+    "serviceDiscoveryType": "eureka"
   }
 }

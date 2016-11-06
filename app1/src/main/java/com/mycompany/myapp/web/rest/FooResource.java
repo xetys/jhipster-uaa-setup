@@ -9,7 +9,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -38,9 +37,7 @@ public class FooResource {
      * @return the ResponseEntity with status 201 (Created) and with body the new foo, or with status 400 (Bad Request) if the foo has already an ID
      * @throws URISyntaxException if the Location URI syntax is incorrect
      */
-    @RequestMapping(value = "/foos",
-        method = RequestMethod.POST,
-        produces = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping("/foos")
     @Timed
     public ResponseEntity<Foo> createFoo(@RequestBody Foo foo) throws URISyntaxException {
         log.debug("REST request to save Foo : {}", foo);
@@ -62,9 +59,7 @@ public class FooResource {
      * or with status 500 (Internal Server Error) if the foo couldnt be updated
      * @throws URISyntaxException if the Location URI syntax is incorrect
      */
-    @RequestMapping(value = "/foos",
-        method = RequestMethod.PUT,
-        produces = MediaType.APPLICATION_JSON_VALUE)
+    @PutMapping("/foos")
     @Timed
     public ResponseEntity<Foo> updateFoo(@RequestBody Foo foo) throws URISyntaxException {
         log.debug("REST request to update Foo : {}", foo);
@@ -82,9 +77,7 @@ public class FooResource {
      *
      * @return the ResponseEntity with status 200 (OK) and the list of foos in body
      */
-    @RequestMapping(value = "/foos",
-        method = RequestMethod.GET,
-        produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping("/foos")
     @Timed
     public List<Foo> getAllFoos() {
         log.debug("REST request to get all Foos");
@@ -98,9 +91,7 @@ public class FooResource {
      * @param id the id of the foo to retrieve
      * @return the ResponseEntity with status 200 (OK) and with body the foo, or with status 404 (Not Found)
      */
-    @RequestMapping(value = "/foos/{id}",
-        method = RequestMethod.GET,
-        produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping("/foos/{id}")
     @Timed
     public ResponseEntity<Foo> getFoo(@PathVariable Long id) {
         log.debug("REST request to get Foo : {}", id);
@@ -118,9 +109,7 @@ public class FooResource {
      * @param id the id of the foo to delete
      * @return the ResponseEntity with status 200 (OK)
      */
-    @RequestMapping(value = "/foos/{id}",
-        method = RequestMethod.DELETE,
-        produces = MediaType.APPLICATION_JSON_VALUE)
+    @DeleteMapping("/foos/{id}")
     @Timed
     public ResponseEntity<Void> deleteFoo(@PathVariable Long id) {
         log.debug("REST request to delete Foo : {}", id);

@@ -29,7 +29,7 @@ processResources {
             it.replace('#logback.loglevel#', logbackLoglevel)
         }
     }
-    filesMatching('**/application.yml') {
+    filesMatching('**/bootstrap.yml') {
         filter {
             it.replace('#spring.profiles.active#', profiles)
         }

@@ -8,7 +8,7 @@ dependencies {
     compile "org.springframework.boot:spring-boot-devtools"
 }
 
-def profiles = 'dev,swagger'
+def profiles = 'dev'
 if (project.hasProperty('no-liquibase')) {
     profiles += ',no-liquibase'
 }
@@ -24,7 +24,7 @@ processResources {
             it.replace('#logback.loglevel#', logbackLoglevel)
         }
     }
-    filesMatching('**/application.yml') {
+    filesMatching('**/bootstrap.yml') {
         filter {
             it.replace('#spring.profiles.active#', profiles)
         }
